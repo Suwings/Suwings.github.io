@@ -1,48 +1,43 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 
-	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta http-equiv="Content-Language" content="zh-CN" />
-		<meta name="renderer" content="webkit" />
-		<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no" />
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Language" content="zh-CN" />
+	<meta name="renderer" content="webkit" />
+	<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no" />
 
-		<title>Suwings 站点</title>
-		
-		<style>
-			html,body{
-				height: 100%;
-				margin: 0;
-				padding: 0;
-				border: 0;
-			}
-			
-			.Top{
-				height: 70px;
-				background-color: rgb(48,48,48);
-				line-height: 70px;
-				padding:  0 8px;
-				color: white;
-				font-size: 18px;
-			}
-			.Context{
-				padding: 0 8px;
-			}
-		</style>
-		
-	</head>
+	<link rel="stylesheet" href="assets/css/style.css" />
+	<link href="./favicon.ico" rel="shortcut icon">
 
-	<body>
-		<div class="Top">
-			Welcome .
+	<title>Suwings Or Yelin | Software</title>
+
+</head>
+
+<body>
+	<div id="PageBackgound">
+		<img class="m-phone-none" src="assets/img/one.jpg" width="100%" height="100%" />
+	</div>
+
+	<div class="PanelCenter" style="width:40%; min-width:240px;">
+		<img id="logo" class="" style="margin: auto;" src="assets/img/logo.png" width="100%" height="100%" />
+		<div class="PanelContext">
+			<p>欢迎光临，可是现在，这个网页正在维护....</p>
 		</div>
-		<div class="Context">
-			<p>这个页面是服务器测试页面,请勿直接访问.谢谢.</p>
-			<p>{"INFO":"INFO_LV_ONE"}</p>
-		</div>
-		
-	</body>
+	</div>
+
+
+
+	<script language="javascript">
+		for (i in document.images) document.images[i].ondragstart = function () {
+			return false;
+		};
+		document.oncontextmenu = function () {
+			return false;
+		}
+	</script>
+</body>
 
 </html>
