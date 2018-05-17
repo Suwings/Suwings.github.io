@@ -1,3 +1,3 @@
 git add .
-git commit -m "Update Log"
+git commit -m "Update File"
 git push
