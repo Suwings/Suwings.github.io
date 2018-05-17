@@ -22,7 +22,7 @@ Linux 备忘录
     - DHCP 服务程序配置文件 /etc/dhcpd.conf
     - BIND 服务程序配置文件 /etc/named.conf 和/var/named/
     - NTP 服务程序配置文件 /etc/ntp.conf
-
+    - Host 文件 /etc/host.conf
 
 - 文件系统
     - 文件系统表 /etc/fstab
