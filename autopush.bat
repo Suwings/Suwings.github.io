@@ -1,3 +1,3 @@
 git add .
-git commit -m "Update File"
+git commit -m "Auto Push"
 git push
