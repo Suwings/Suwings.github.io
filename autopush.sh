@@ -1,3 +1,6 @@
+git pull
 git add .
-git commit -m "Update Log"
+git commit -m "Auto Push"
 git push
+
+echo "Done"
