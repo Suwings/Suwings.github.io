@@ -8,10 +8,22 @@
 
 html,
 body {
-    height: 100%;
     margin: 0;
     padding: 0;
     border: 0;
+}
+
+#main {
+    margin: auto;
+    width: 760px;
+    max-width: 760xp;
+}
+
+#mhello {
+    display: block;
+    margin-top: 40vh;
+    font-size: 18px;
+    margin-left: 10vw;
 }
 
 /* 手机模式 */
@@ -21,72 +33,7 @@ body {
         display: none;
         opacity: 0;
     }
-}
-
-/* 单利区域 */
-
-#PageBackgound {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    overflow: hidden;
-    min-height: 200px;
-    background-color: #fdfdfd;
-}
-
-#logo {
-    animation: actionLR 1s;
-    /* animation-direction: alternate; */
-    animation-iteration-count: infinite;
-}
-
-/* 类区域 */
-
-.PanelCenter {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    margin: auto;
-    left: 0;
-    right: 0;
-}
-
-.PanelContext {
-    overflow: hidden;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-}
-
-.PanelContext p {
-    color: #d0d0d0;
-    text-align: center;
-    font-size: 14px;
-}
-
-/* Action */
-
-@keyframes actionLR {
-    0% {
-        margin-left: -2px;
-        margin-top: -1px;
-    }
-    25% {
-        margin-left: 0px;
-        margin-top: 0px;
-    }
-    50% {
-        margin-left: 2px;
-        margin-top: -1px;
-    }
-    75% {
-        margin-left: 0px;
-        margin-top: 0px;
-    }
-    100% {
-        margin-left: -2px;
-        margin-top: -1px;
+    #mhello {
+        font-size: 12px;
     }
 }
