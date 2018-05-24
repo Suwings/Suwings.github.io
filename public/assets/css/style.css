@@ -15,15 +15,14 @@ body {
 
 #main {
     margin: auto;
-    width: 760px;
-    max-width: 760xp;
+    max-width: 960xp;
 }
 
 #mhello {
     display: block;
-    margin-top: 40vh;
+    margin-top: 5vh;
     font-size: 18px;
-    margin-left: 10vw;
+    margin-left: 8vw;
 }
 
 /* 手机模式 */
