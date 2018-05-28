@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0px;
+            border: 0px;
+
+        }
+
+        #diva {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+
+        }
+
+        #divb {
+            width: 120px;
+            height: 120px;
+            background-color: green;
+        }
+
+        #divc {
+            width: 140px;
+            height: 120px;
+            background-color: rgb(135, 146, 135);
+        }
+
+        #divd {
+            width: 260px;
+            height: 120px;
+            background-color: rgb(218, 147, 16);
+        }
+
+        .item {
+
+            /* flex-grow: 1; */
+        }
+
+        .flex {
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex" style="  display: flex;background-color: blue; flex-direction:column;">
+        <div id="diva" class="item">AAAAAA</div>
+        <div id="divb" class="item">BBBBBBBBBBBB</div>
+    </div>
+    <div class="flex" style="  display: flex;background-color: rgb(107, 107, 255);">
+        <div id="divc" class="item">ccccccccc</div>
+        <div id="divd" class="item">DDDDDDDDD</div>
+    </div>
+</body>
+
+</html>
