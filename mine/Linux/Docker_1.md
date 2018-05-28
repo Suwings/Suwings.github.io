@@ -1,17 +1,17 @@
 Docker 应用 (1)
 ---------
 
-运行 Docker 容器
+- 运行 Docker 容器
 ```bash
 docker run -i -t -d -p 24444:24444 mcsm/m /bin/bash
 docker exec -it containerID /bin/bash
 ```
 > -d 守护状态   -i 即使没有附加也保持STDIN 打开   -t 分配一个伪终端
 
-中文乱码问题
+- 中文乱码问题
 > ENV LANG C.UTF-8
 
-简单的 Dockerfile
+- 简单的 Dockerfile
 ```bash
 FROM node:latest
 RUN echo "deb http://http.debian.net/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list
@@ -28,16 +28,16 @@ CMD npm start
 > 但是可以 docker run xxx/xxx COMMAND 来执行其他
 
 
-制作 Docker
+- 制作 Docker
 > docker build -t mcsm/m
 
-Pull
+- Pull
 > docker pull xxx/xxx
 
-Commit
+- Commit
 > docker commit c3f279d17e0a  SvenDowideit/testimage:version3
 
-See Images:
+- See Images:
 > docker images 
 
 
