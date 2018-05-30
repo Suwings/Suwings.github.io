@@ -1,15 +1,15 @@
-package top.suiwngs.handler;
+package top.suiwngs.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import top.suiwngs.entiy.MinePackage;
 
 
-public class MineServerHandler extends ChannelInboundHandlerAdapter {
+public class MineClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        ctx.pipeline().write(new MinePackage("HELLO\n"));
+        ctx.pipeline().write(new MinePackage("Client OK!\n"));
         ctx.pipeline().flush();
     }
 
@@ -22,6 +22,7 @@ public class MineServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        System.out.println("ERROR:");
         cause.printStackTrace();
         ctx.close();
     }

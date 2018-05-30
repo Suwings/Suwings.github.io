@@ -1,4 +1,4 @@
-package top.suiwngs;
+package top.suiwngs.server;
 
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -11,7 +11,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import top.suiwngs.entiy.PackageDecoder;
 import top.suiwngs.entiy.PackageEncoder;
-import top.suiwngs.handler.MineServerHandler;
+import top.suiwngs.server.handler.MineServerHandler;
 
 // Bootstrap，一个Netty应用通常由一个Bootstrap开始，它主要作用是配置整个Netty程序，串联起各个组件。
 
@@ -35,6 +35,7 @@ import top.suiwngs.handler.MineServerHandler;
 // Future，在Netty中所有的IO操作都是异步的，因此，你不能立刻得知消息是否被正确处理，但是我们可以过一会等它执行完成或者直接注册一个监听
 // 具体的实现就是通过Future和ChannelFutures,他们可以注册一个监听，当操作执行成功或失败时监听会自动触发。总之，所有的操作都会返回一个ChannelFuture。
 
+//Simple Server
 public class MineServer {
 
     private int port;
