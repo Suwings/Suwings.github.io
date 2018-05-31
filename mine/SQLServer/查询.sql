@@ -1,4 +1,4 @@
---	在T_user表插入数据：“id01，刘德华，123，KBB，5678900，湖南长沙，13899005678，ldh123，admin”；
+--	在T_user表插入数据：“id01，刘德华，123，KBB，5678900，XXX，13899005678，ldh123，admin”；
 use ConstructionDB
 
 go
@@ -6,7 +6,7 @@ go
 delete T_user where T_user.user_name = '刘德华'
 insert into 
 	T_user(user_id,user_name,user_passwd,dept_id,telephone,address,handphone,usb_no,reserve)
-	values ('id01','刘德华','123','KBB','5678900','湖南长沙','13899005678','ldh123','admin')
+	values ('id01','刘德华','123','KBB','5678900','XXXXX','13899005678','ldh123','admin')
 
 
 --	查询出所属部门为“KBB”的操作员的基本信息；

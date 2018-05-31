@@ -33,9 +33,9 @@ insert into m_users(name,class,age) values ('CCCC',3179,11);
 insert into m_users(name,class,age) values ('DDDDDDD',3179,11);
 insert into m_users(name,class,age) values ('EEEEEEEEEEE',3170,14);
 
-insert into m_jobs(jobname,user_id) values ('ɨ��',1);
-insert into m_jobs(jobname,user_id) values ('�ϵ�',3);
-insert into m_jobs(jobname,user_id) values ('���',2);
+insert into m_jobs(jobname,user_id) values ('AAA',1);
+insert into m_jobs(jobname,user_id) values ('BBBB',3);
+insert into m_jobs(jobname,user_id) values ('GGGG',2);
 
 select  m_users.class, AVG(m_users.age) as avgv from m_users 
 

@@ -51,6 +51,24 @@
 
 储存过程可以定义函数，变量，返回值，甚至有点类似于小型的编程语言。
 
+列如简单的:
+```sql
+-- 请单独执行
+create proc search_student(
+	@class varchar(5), -- 参数
+	@name varchar(4) output -- 返回值
+)
+as
+    select @name=sname from dbo.students where students.class=@class;
+
+
+-- 值得注意的是,返回的结果是最后一个,而不是一个结果集
+declare @recv varchar(4)
+exec search_student '95031',@recv output    --接受返回值
+select @recv
+
+```
+
 事务
 ---------
 
@@ -61,7 +79,7 @@
 **事务 4 大属性：**
 
 - 原子性(Atomicity):    事务是一个完整的操作，要么全部执行，要么全部不执行。
-- 一致性（Consistency)  当事务完成时，数据必须处于一致状态。
+- 一致性(Consistency):  当事务完成时，数据必须处于一致状态。
 - 隔离性(Isolation):    对数据进行修改的所有并发事务是彼此隔离的。
 - 持久性(Durability):   事务完成后，它对于系统的影响是永久性的。
 
@@ -73,11 +91,43 @@
  
 **事务分类:**
 
-- 显式事务:用begin transaction明确指定事务的开始。
+- 显式事务:用 begin transaction 明确指定事务的开始。
 - 隐性事务：打开隐性事务,SQL Servler 将在提交或回滚事务后自动启动新事务。无法描述事务的开始，只需要提交或回滚事务。
 - 自动提交事务：SQL Server 的默认模式，它将每条单独的T-SQL语句视为一个事务。如果成功执行，则自动提交，否则回滚。
 
+一个模板类似于:
+```sql
+-- 开始事务
+begin tran 
 
+declare @tran_error int;
+set @tran_error=0;
+
+begin try
+	insert into students(class,sname,sno,ssex,sbirthday) values('2312', '000','ssssssss', 'M', '1999-12-24');
+	insert into students(class,sname,sno,ssex,sbirthday) values('000', '000','00', 'M', '1999-12-24');
+	insert into students(class,sname,sno,ssex,sbirthday) values('111', '111','11', 'M', '1999-12-24');
+end try
+begin catch
+	set @tran_error=@tran_error+1; --加分号或不加都能正常执行
+end catch
+
+-- 判断是否有错误
+if(@tran_error>0)
+begin
+	--执行出错，回滚事务
+	rollback tran ;
+	print 'ERROR:' + convert(varchar,@tran_error);
+end 
+else
+begin
+	--没有异常，提交事务
+	commit tran ; 
+	print 'OK:' + convert(varchar,@tran_error);;
+end
+```
+
+> 通常我们建议，将储存过程与事务相结合使用。
 
 数据库范式
 ---------
