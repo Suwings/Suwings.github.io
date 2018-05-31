@@ -1,6 +1,6 @@
 -- 请注意储存过程只能单独执行
 create procedure proc_emp_create (
-	@classz varchar(5) ,@sno varchar(3),@sname varchar(6)
+    @classz varchar(5) ,@sno varchar(3),@sname varchar(6)
 )
 as
 begin

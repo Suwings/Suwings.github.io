@@ -13,49 +13,49 @@ SQLServer 基本数据类型
 
 **Character 字符串**
 
-- char(n)		固定长度的字符串 | 最多 8,000 个字符。
-- varchar(n)	可变长度的字符串 | 最多 8,000 个字符。 
-- varchar(max)	可变长度的字符串 | 最多 1,073,741,824 个字符。	 
-- text			可变长度的字符串 | 最多 2GB 字符数据。
+- char(n)        固定长度的字符串 | 最多 8,000 个字符。
+- varchar(n)    可变长度的字符串 | 最多 8,000 个字符。 
+- varchar(max)    可变长度的字符串 | 最多 1,073,741,824 个字符。     
+- text            可变长度的字符串 | 最多 2GB 字符数据。
 
 **Unicode 字符串**
 
-- nchar(n)		固定长度的 Unicode 数据。最多 4,000 个字符。	 
-- nvarchar(n)	可变长度的 Unicode 数据。最多 4,000 个字符。	 
-- nvarchar(max)	可变长度的 Unicode 数据。最多 536,870,912 个字符。	 
-- ntext			可变长度的 Unicode 数据。最多 2GB 字符数据。
+- nchar(n)        固定长度的 Unicode 数据。最多 4,000 个字符。     
+- nvarchar(n)    可变长度的 Unicode 数据。最多 4,000 个字符。     
+- nvarchar(max)    可变长度的 Unicode 数据。最多 536,870,912 个字符。     
+- ntext            可变长度的 Unicode 数据。最多 2GB 字符数据。
 
 **Binary 类型**
 
-- bit			允许 0、1 或 NULL	 
-- binary(n)		固定长度的二进制数据。最多 8,000 字节。	 
-- varbinary(n)	可变长度的二进制数据。最多 8,000 字节。	 
-- varbinary(max)可变长度的二进制数据。最多 2GB 字节。	 
-- image			可变长度的二进制数据。最多 2GB字节。
+- bit            允许 0、1 或 NULL     
+- binary(n)        固定长度的二进制数据。最多 8,000 字节。     
+- varbinary(n)    可变长度的二进制数据。最多 8,000 字节。     
+- varbinary(max)可变长度的二进制数据。最多 2GB 字节。     
+- image            可变长度的二进制数据。最多 2GB字节。
 
 **Number 类型**
 
-- tinyint		允许从 0 到 255 的所有数字。1 字节。
-- smallint		允许从 -32,768 到 32,767 的所有数字。2 字节。
-- int			允许从 -2,147,483,648 到 2,147,483,647 的所有数字。4 字节。
-- bigint		允许 -9,223,372,036,854,775,808 ~ 9,223,372,036,854,775,807 之间的所有数字。8 字节。
-- float			-1.79E+308 至 -2.23E - 308、0 以及 2.23E - 308 至 1.79E + 308。
-- real			-3.40E+38 至 -1.18E - 38、0 以及 1.18E - 38 至 3.40E + 38。
-- money			8 字节。可用货币符号。
-- smallmoney	4 个字节。可用货币符号。
+- tinyint        允许从 0 到 255 的所有数字。1 字节。
+- smallint        允许从 -32,768 到 32,767 的所有数字。2 字节。
+- int            允许从 -2,147,483,648 到 2,147,483,647 的所有数字。4 字节。
+- bigint        允许 -9,223,372,036,854,775,808 ~ 9,223,372,036,854,775,807 之间的所有数字。8 字节。
+- float            -1.79E+308 至 -2.23E - 308、0 以及 2.23E - 308 至 1.79E + 308。
+- real            -3.40E+38 至 -1.18E - 38、0 以及 1.18E - 38 至 3.40E + 38。
+- money            8 字节。可用货币符号。
+- smallmoney    4 个字节。可用货币符号。
 
 **Date 类型**
 
-- datetime		从 1753 年 1 月 1 日 到 9999 年 12 月 31 日，精度为 3.33 毫秒。
-- date			仅存储日期。从 0001 年 1 月 1 日 到 9999 年 12 月 31 日。	3 bytes
-- time			仅存储时间。精度为 100 纳秒。
+- datetime        从 1753 年 1 月 1 日 到 9999 年 12 月 31 日，精度为 3.33 毫秒。
+- date            仅存储日期。从 0001 年 1 月 1 日 到 9999 年 12 月 31 日。    3 bytes
+- time            仅存储时间。精度为 100 纳秒。
 
 **其他数据类型**
 
-- sql_variant	存储最多 8,000 字节不同数据类型的数据，除了 text、ntext 以及 timestamp。
-- xml			存储 XML 格式化数据。最多 2GB。
-- cursor		存储对用于数据库操作的指针的引用。
-- table			存储结果集，供稍后处理。
+- sql_variant    存储最多 8,000 字节不同数据类型的数据，除了 text、ntext 以及 timestamp。
+- xml            存储 XML 格式化数据。最多 2GB。
+- cursor        存储对用于数据库操作的指针的引用。
+- table            存储结果集，供稍后处理。
 
 > 更多类型请访问 [微软官方文档](https://docs.microsoft.com/zh-cn/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-2017)
 > 或者 [菜鸟教程 (适合初学者)](http://www.w3school.com.cn/sql/sql_datatypes.asp)
@@ -90,8 +90,12 @@ SQLServer 基本数据类型
 
 类似于在书中建立一个目录，我们只需要翻找目录，就可以找到你要数据的具体页码，从而实现快速查询。
 
-- 聚集索引      查询有序排列数据。所以在根据主键进行查询时会效率很高。
-- 非聚集索引    在非聚集索引中，不重复的数据越多，那么索引的效率越高。
+> 使用索引能提高查询效率，但是索引也是占据空间的，而且添加、更新、删除数据的时候也需要同步更新索引，因此会降低 Insert、Update、Delete 的速度。
+
+> 只在经常检索的字段上 Where 创建索引。
+
+- 聚集索引      有序。查询有序排列数据。所以在根据主键进行查询时会效率很高。
+- 非聚集索引    无序。在非聚集索引中，不重复的数据越多，那么索引的效率越高。
 
 
 执行顺序
@@ -108,6 +112,23 @@ SQLServer 基本数据类型
 ![order](../common/db_order.jpg)
 
 
+视图
+--------
+
+视图十分简单，你只需要知道它是相当于一个过滤器，让你看不见内部， 装饰一番的数据发送给你。
+
+简单的视图创建:
+
+```sql
+create view v_demo
+as
+    select * from xxx where xx = xx -- 要执行的语句（可多连接，子查询等等）
+
+-- 使用视图就当做是一张表一样的使用
+select * from v_demo 
+```
+
+
 T-SQL 逻辑处理编程
 --------
 
@@ -122,20 +143,20 @@ set @test1 = 101
 
 -- IF
 if(@test1 > 100)
-	begin
-		print 'Test1 > 100'
-	end
+    begin
+        print 'Test1 > 100'
+    end
 else
-	begin
-		print 'Test1 < 100'
-	end
+    begin
+        print 'Test1 < 100'
+    end
 
 -- While 循环
 -- break是表示结束循环，与c语言中的辅助控制语句break，continue类似
 while(@test1 < 200)
-	begin
-		set @test1+=1
-	end
+    begin
+        set @test1+=1
+    end
 
 -- 输出 200
 print 'While:' + convert(nvarchar,@test1);
@@ -143,11 +164,11 @@ print 'While:' + convert(nvarchar,@test1);
 -- case 给不同分数分等级
 use demo
 select scores.cno,scores.sno, degree=case
-	when scores.degree>=90 then 'A'
-	when scores.degree>=80 then 'B'
-	when scores.degree>=70 then 'C'
-	else 'D'
-	end
+    when scores.degree>=90 then 'A'
+    when scores.degree>=80 then 'B'
+    when scores.degree>=70 then 'C'
+    else 'D'
+    end
 from scores
 ```
 
@@ -164,8 +185,8 @@ from scores
 ```sql
 -- 请单独执行
 create proc search_student(
-	@class varchar(5), -- 参数
-	@name varchar(4) output -- 返回值
+    @class varchar(5), -- 参数
+    @name varchar(4) output -- 返回值
 )
 as
     select @name=sname from dbo.students where students.class=@class;
@@ -215,26 +236,26 @@ set @tran_error=0;
 begin try
     -- 其中,这里只要有一个语句发生异常,那么整个语句将都不会执行。
     -- 原先已做过的语句将会被撤销。
-	insert into students(class,sname,sno,ssex,sbirthday) values('2312', '000','ssssssss', 'M', '1999-12-24');
-	insert into students(class,sname,sno,ssex,sbirthday) values('000', '000','00', 'M', '1999-12-24');
-	insert into students(class,sname,sno,ssex,sbirthday) values('111', '111','11', 'M', '1999-12-24');
+    insert into students(class,sname,sno,ssex,sbirthday) values('2312', '000','ssssssss', 'M', '1999-12-24');
+    insert into students(class,sname,sno,ssex,sbirthday) values('000', '000','00', 'M', '1999-12-24');
+    insert into students(class,sname,sno,ssex,sbirthday) values('111', '111','11', 'M', '1999-12-24');
 end try
 begin catch
-	set @tran_error=@tran_error+1; --加分号或不加都能正常执行
+    set @tran_error=@tran_error+1; --加分号或不加都能正常执行
 end catch
 
 -- 判断是否有错误
 if(@tran_error>0)
 begin
-	--执行出错，回滚事务
-	rollback tran ;
-	print 'ERROR:' + convert(varchar,@tran_error);
+    --执行出错，回滚事务
+    rollback tran ;
+    print 'ERROR:' + convert(varchar,@tran_error);
 end 
 else
 begin
-	--没有异常，提交事务
-	commit tran ; 
-	print 'OK:' + convert(varchar,@tran_error);;
+    --没有异常，提交事务
+    commit tran ; 
+    print 'OK:' + convert(varchar,@tran_error);;
 end
 ```
 

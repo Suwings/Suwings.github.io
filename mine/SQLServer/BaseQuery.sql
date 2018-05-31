@@ -5,17 +5,17 @@ create database demomine
 use test
 */
 if EXISTS(SELECT * FROM sys.databases WHERE name='demomine')  
-	drop database demomine
+    drop database demomine
 /*  Start  */
 
 if exists(select * from sysobjects where name = 'player_users')
-	drop table player_users
+    drop table player_users
 
 create table player_users(
-	id INT identity(1,1) not null,
-	username VARCHAR(24) not null,
-	password VARCHAR (24) not null,
-	info TEXT ,
+    id INT identity(1,1) not null,
+    username VARCHAR(24) not null,
+    password VARCHAR (24) not null,
+    info TEXT ,
 
 )
 
@@ -42,5 +42,5 @@ update player_users set info = '__Update__' where info is null
 select * from player_users where id between 1 and 99
 
 
-	
+    
 drop table player_users

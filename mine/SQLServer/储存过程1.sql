@@ -1,7 +1,7 @@
 -- 请独立执行
 create proc search_student(
-	@class varchar(5),
-	@name varchar(4) output
+    @class varchar(5),
+    @name varchar(4) output
 )
 as
     select @name=sname from dbo.students where students.class=@class;

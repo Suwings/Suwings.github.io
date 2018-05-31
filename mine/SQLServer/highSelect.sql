@@ -1,27 +1,27 @@
  
 if exists(select * from sysobjects where name = 'm_jobs')
-	drop table m_jobs
+    drop table m_jobs
 if exists(select * from sysobjects where name = 'm_users')
-	drop table m_users
+    drop table m_users
 
 
 
 
 create table m_users(
-	id int identity(1,1) not null,
-	name varchar(32) not null,
-	class int not null ,
-	age int not null default 0,
-	primary key(id),
+    id int identity(1,1) not null,
+    name varchar(32) not null,
+    class int not null ,
+    age int not null default 0,
+    primary key(id),
 
 )
 
 create table m_jobs(
-	id int identity(1,1) not null,
-	jobname varchar(32) not null,
-	user_id int not null,
-	primary key(id),
-	foreign key(user_id) references m_users(id)
+    id int identity(1,1) not null,
+    jobname varchar(32) not null,
+    user_id int not null,
+    primary key(id),
+    foreign key(user_id) references m_users(id)
 )
 
 
@@ -48,10 +48,10 @@ order by avgv desc
 
 select m_users.class as classz,
 
-	case
-		when m_users.class = 3175 then 'A Class'
-		when m_users.class = 3179 then 'B Class'
+    case
+        when m_users.class = 3175 then 'A Class'
+        when m_users.class = 3179 then 'B Class'
 
-	end as 'Class Classzz'
+    end as 'Class Classzz'
 
 from m_users where m_users.age > 20
