@@ -268,17 +268,51 @@ end
 ---------
 
 当对表进行操作的时候，某些特定事件可能会被触发，然后执行相应的 SQL 语句。
-[!原理图片加载失败](../common/trigger.png)
+
+其中，触发器有两个特殊的虚拟表：
+- 插入表（instered 表）    当发生插入操作时，会先临时加入到此表，等待你的调用。
+- 删除表（deleted 表）     当发生删除操作时，会先临时加入到此表，等待你的调用。
+
+![原理图片加载失败](../common/trigger.png)
+
 ```sql
 CREATE TRIGGER trigger_name
     ON table_name
     [WITH ENCRYPTION]
-    FOR | AFTER | INSTEAD OF [DELETE, INSERT, UPDATE]
-AS 
-    [T-SQL] 语句
+    [FOR | AFTER | INSTEAD] OF [DELETE, INSERT, UPDATE]
+AS
+    begin
+        [T-SQL] 语句
+    end
 GO
 -- with encryption       表示加密触发器定义的sql文本
 -- delete,insert,update  指定触发器的类型
+```
+
+简单代码应用是：
+```sql
+-- 插入数据时，不可插入除 95033 班级以外的
+CREATE TRIGGER TRIGER_Students_Insert
+ON students
+FOR INSERT
+AS
+	begin
+		declare @class varchar(6)
+		SELECT @class=students.class from students 
+            -- inserted 是虚拟表
+			inner join inserted ON students.sno=students.sno
+		if(@class != '95033')
+		begin
+			raiserror('不可操作 95033 以外的触发器',16,8)
+			rollback tran
+		end
+	end
+
+-- 列如这条语句将会执行被阻止
+insert into students values('000','XXX','男','1999-12-31','95034')
+
+-- 删除触发器
+DROP TRIGGER TRIGER_Students_Insert;
 ```
 
 数据库范式
