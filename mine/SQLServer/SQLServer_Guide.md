@@ -263,6 +263,11 @@ end
 
 **想知道如何与储存过程结合？** [单击这里](https://github.com/Suwings/Suwings.github.io/blob/master/mine/SQLServer/%E4%BA%8B%E5%8A%A12.sql)
 
+
+触发器
+---------
+正在更新....
+
 数据库范式
 ---------
 
@@ -283,6 +288,19 @@ end
 **第四范式（4NF）** 要求把同一表内的多对多关系删除。
 
 **第五范式（5NF）** 又称完美范式，从最终结构重新建立原始结构。
+
+<br />
+
+参考文献
+---------
+> [https://docs.microsoft.com/zh-cn/sql/t-sql/](https://docs.microsoft.com/zh-cn/sql/t-sql/)
+
+> [https://www.cnblogs.com/rdst/p/4727063.html](https://www.cnblogs.com/rdst/p/4727063.html)
+
+> [http://www.w3school.com.cn/sql/sql_datatypes.asp](http://www.w3school.com.cn/sql/sql_datatypes.asp)
+
+> [https://www.cnblogs.com/fengxiaojiu/p/7994124.html](https://www.cnblogs.com/fengxiaojiu/p/7994124.html)
+
 
 
 <br /><br />
