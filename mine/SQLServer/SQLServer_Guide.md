@@ -285,17 +285,17 @@ CREATE TRIGGER TRIGER_Students_Insert
 ON students
 FOR INSERT
 AS
-	begin
-		declare @class varchar(6)
-		SELECT @class=students.class from students 
+    begin
+        declare @class varchar(6)
+        SELECT @class=students.class from students 
             -- inserted 是虚拟表
-			inner join inserted ON students.sno=students.sno
-		if(@class != '95033')
-		begin
-			raiserror('不可操作 95033 以外的触发器',16,8)
-			rollback tran
-		end
-	end
+            inner join inserted ON students.sno=students.sno
+        if(@class != '95033')
+        begin
+            raiserror('不可操作 95033 以外的触发器',16,8)
+            rollback tran
+        end
+    end
 
 -- 列如这条语句将会执行被阻止
 insert into students values('000','XXX','男','1999-12-31','95034')
