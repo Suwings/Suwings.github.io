@@ -108,6 +108,49 @@ SQLServer 基本数据类型
 ![order](../common/db_order.jpg)
 
 
+T-SQL 逻辑处理编程
+--------
+
+很简单，主要逻辑仅有 `if` `while` `case` 等等，逻辑语法并不是很多，无需担心。
+
+```sql
+-- 逻辑编程
+
+-- 定义变量
+declare @test1 int
+set @test1 = 101
+
+-- IF
+if(@test1 > 100)
+	begin
+		print 'Test1 > 100'
+	end
+else
+	begin
+		print 'Test1 < 100'
+	end
+
+-- While 循环
+-- break是表示结束循环，与c语言中的辅助控制语句break，continue类似
+while(@test1 < 200)
+    begin
+       set @test1+=1
+	end
+
+-- 输出 200
+print 'While:' + convert(nvarchar,@test1);
+
+-- case 给不同分数分等级
+use demo
+select scores.cno,scores.sno, degree=case
+	 when scores.degree>=90 then 'A'
+	 when scores.degree>=80 then 'B'
+	 when scores.degree>=70 then 'C'
+	 else 'D'
+	end
+from scores
+```
+
 储存过程
 ---------
 
