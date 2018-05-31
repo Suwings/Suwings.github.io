@@ -2,6 +2,10 @@
 
 本文章所有代码与概念以 `SQLServer 2012` 为准。
 
+本文章不适合无任何编程语言基础者阅读，不适合从未接触过数据库者阅读，但是你可以尝试阅读。
+
+此篇旨在于帮助有基础者快速浏览数据库基本学习路线。
+
 <br />
 
 SQLServer 基本数据类型
@@ -51,6 +55,8 @@ SQLServer 基本数据类型
 
 > 更多类型请访问 [微软官方文档](https://docs.microsoft.com/zh-cn/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-2017)
 > 或者 [菜鸟教程 (适合初学者)](http://www.w3school.com.cn/sql/sql_datatypes.asp)
+
+
 
 表，字段，记录
 ---------
