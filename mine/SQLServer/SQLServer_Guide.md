@@ -133,8 +133,8 @@ else
 -- While 循环
 -- break是表示结束循环，与c语言中的辅助控制语句break，continue类似
 while(@test1 < 200)
-    begin
-       set @test1+=1
+	begin
+		set @test1+=1
 	end
 
 -- 输出 200
@@ -143,10 +143,10 @@ print 'While:' + convert(nvarchar,@test1);
 -- case 给不同分数分等级
 use demo
 select scores.cno,scores.sno, degree=case
-	 when scores.degree>=90 then 'A'
-	 when scores.degree>=80 then 'B'
-	 when scores.degree>=70 then 'C'
-	 else 'D'
+	when scores.degree>=90 then 'A'
+	when scores.degree>=80 then 'B'
+	when scores.degree>=70 then 'C'
+	else 'D'
 	end
 from scores
 ```
