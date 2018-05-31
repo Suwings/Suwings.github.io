@@ -266,7 +266,20 @@ end
 
 触发器
 ---------
-正在更新....
+
+当对表进行操作的时候，某些特定事件可能会被触发，然后执行相应的 SQL 语句。
+[!原理图片加载失败](../common/trigger.png)
+```sql
+CREATE TRIGGER trigger_name
+    ON table_name
+    [WITH ENCRYPTION]
+    FOR | AFTER | INSTEAD OF [DELETE, INSERT, UPDATE]
+AS 
+    [T-SQL] 语句
+GO
+-- with encryption       表示加密触发器定义的sql文本
+-- delete,insert,update  指定触发器的类型
+```
 
 数据库范式
 ---------
