@@ -42,6 +42,9 @@
 往往 `from` 关键字是最先执行，`select` 最后执行。
 
 请参考下图:
+
+> 本图来源网络，在 order by 与 top 之间的顺序错误，敬请谅解。
+
 ![order](../common/db_order.jpg)
 
 
@@ -133,6 +136,8 @@ end
 ```
 
 > 通常我们建议，将储存过程与事务相结合使用。
+
+**想知道如何与储存过程结合？** [单击这里](https://github.com/Suwings/Suwings.github.io/blob/master/mine/SQLServer/%E4%BA%8B%E5%8A%A12.sql)
 
 数据库范式
 ---------
