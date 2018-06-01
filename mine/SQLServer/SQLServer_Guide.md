@@ -4,7 +4,7 @@
 
 本文章不适合无任何编程语言基础者阅读，不适合从未接触过数据库者阅读，但是你可以尝试阅读。
 
-此篇旨在于帮助有基础者快速浏览数据库基本学习路线。
+此篇旨在于帮助有基础者快速浏览数据库基本学习路线，或者有其他数据库基础的快速浏览。
 
 <br />
 
@@ -62,19 +62,57 @@ SQLServer 基本数据类型
 
 
 
-表，字段，记录
+数据库，表，字段，记录
 ---------
 
 数据存在于表中，表有各个字段，每一行数据称作为记录，这里不再详细介绍。
 
-主键，外键
+> 数据库常用创建代码: [代码链接](https://github.com/Suwings/Suwings.github.io/blob/master/mine/SQLServer/%E5%88%9B%E5%BB%BA.sql)
+
+> 增删查减常用代码: [代码链接](https://github.com/Suwings/Suwings.github.io/blob/master/mine/SQLServer/%E5%9F%BA%E7%A1%80%E6%9F%A5%E8%AF%A2.sql)
+
+
+单表，多表查询
 ---------
 
-这些全部都是约束，用于约束你对表中数据的更改，因为你无法保证你的每一项操作都是正确的，所以加入这些约束会有好处。
+数据库最常用的就是查询，其中查询也有很多种。
 
-主键的话，可以拥有一个独立的 ID 作为主键，并且自动递增与避免重复。
+最简单的查询莫过于:
 
-外键的话，可以让另外一个表的主键作为你的外键，那么自然你就与这个表进行关联，操作时会考虑是否合法。
+```sql
+select * from table_name
+```
+
+多表链接查询:
+```sql
+select users.* , jobs.* from users inner join jobs on users.id = jobs.user_id
+```
+
+子查询:
+```sql
+select * from T_func_item 
+    where func_id in (
+        select Relationship_1.func_id from Relationship_1
+            where Relationship_1.func_role_id in (
+                select func_role_id from T_func_role_def 
+                    where T_func_role_def.func_role_name = '投标责任人'
+            )
+    )
+```
+
+> 这不是 T-SQL 教程，所以在这里不再更详细的介绍。
+
+约束
+---------
+
+约束你对表中数据的更改，因为你无法保证你的每一项操作都是正确的，所以加入这些约束会有好处。
+
+- 主键约束，可以拥有一个独立的 ID 作为主键。
+- 外键约束，可以让另外表的键作为你的外键，那么你就与这个表进行关联，操作时会考虑是否合法。
+- NOT NULL 约束，会禁止你输入空值。
+- Unique 约束，会禁止你输入重复值。
+- Default 约束，会自动设置默认值。
+- Check 约束，检查值是否符合范围。
 
 分组与排序
 ---------
@@ -214,6 +252,7 @@ select @recv
 - 一致性(Consistency):  当事务完成时，数据必须处于一致状态。
 - 隔离性(Isolation):    对数据进行修改的所有并发事务是彼此隔离的。
 - 持久性(Durability):   事务完成后，它对于系统的影响是永久性的。
+
 简单的事务代码:
 ```sql
 -- 开始事务
@@ -238,13 +277,13 @@ if(@tran_error>0)
 begin
     --执行出错，回滚事务
     rollback tran ;
-    print 'ERROR:' + convert(varchar,@tran_error);
+    print 'ERROR:' + convert(varchar,@tran_error)
 end 
 else
 begin
     --没有异常，提交事务
     commit tran ; 
-    print 'OK:' + convert(varchar,@tran_error);;
+    print 'OK:' + convert(varchar,@tran_error)
 end
 ```
 
