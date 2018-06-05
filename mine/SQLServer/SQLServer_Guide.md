@@ -245,7 +245,7 @@ select @recv
 ```sql
 use demo
 -- 创建一个名字叫做 fullname 的储存函数，请单独执行此语句
-create function fullname(@firstname char(30),@lastname char(30))
+create function FUNC_DEMO(@firstname char(30),@lastname char(30))
 returns char(61) -- 告知返回类型
 begin
     -- 函数体
