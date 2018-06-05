@@ -13,16 +13,14 @@ SQLServer 基本数据类型
 
 **Character 字符串**
 
-- char(n)        固定长度的字符串 | 最多 8,000 个字符。
-- varchar(n)    可变长度的字符串 | 最多 8,000 个字符。 
-- varchar(max)    可变长度的字符串 | 最多 1,073,741,824 个字符。     
-- text            可变长度的字符串 | 最多 2GB 字符数据。
+- char(n)         固定长度的字符串 | 最多 8,000 个字节。
+- varchar(n)      可变长度的字符串 | 最多 8,000 个字节。 
+- text            可变长度的字符串 | 最多 2GB 字节数据。
 
 **Unicode 字符串**
 
 - nchar(n)        固定长度的 Unicode 数据。最多 4,000 个字符。     
-- nvarchar(n)    可变长度的 Unicode 数据。最多 4,000 个字符。     
-- nvarchar(max)    可变长度的 Unicode 数据。最多 536,870,912 个字符。     
+- nvarchar(n)    可变长度的 Unicode 数据。最多 4,000 个字符。
 - ntext            可变长度的 Unicode 数据。最多 2GB 字符数据。
 
 **Binary 类型**
@@ -167,7 +165,7 @@ select * from v_demo
 ```
 
 
-T-SQL 逻辑处理编程
+T-SQL 逻辑编程
 --------
 
 很简单，主要逻辑仅有 `if` `while` `case` 等等，逻辑语法并不是很多，无需担心。
@@ -236,6 +234,54 @@ exec search_student '95031',@recv output    --接受返回值
 select @recv
 
 ```
+
+储存函数
+----------
+利用 `Create function` 创建函数。
+
+你可以用编程语言的思想来思考，这类似于`C`语言中的函数。
+
+类似于这样：
+```sql
+use demo
+-- 创建一个名字叫做 fullname 的储存函数，请单独执行此语句
+create function fullname(@firstname char(30),@lastname char(30))
+returns char(61) -- 告知返回类型
+begin
+    -- 函数体
+    declare @name char(61);
+    set @name = @firstname + ' ' + @lastname;
+    -- 返回一个 char(61)
+    return (@name); 
+    -- 甚至可以返回表对象，如下
+    return (
+        select XXXX from XXXXX where XX=XX
+    )
+end
+
+-- 返回字符串使用方法:
+select [dbo].[FUNC_DEMO]('AA','bbb') as x
+
+-- 返回表对象使用方法： 将其当做一个虚拟表来看待。
+-- 是不是又类似“视图”了？
+select * from [dbo].[FUNC_DEMO]('XXXX','XXXX')
+```
+
+**更好的理解方法**
+
+相信你应该知道 SQLServer 里面有如 `MAX()` `COUNT()` `MIN()` 这类函数，这类函数称之为系统函数。而我们现在就相当于写了一个类似于 `MINE_MAX()` 的用户自定义函数，方便你以后的 SQL 语句编写使用。当然，功能不止这一种。
+
+
+储存过程与储存函数
+----------
+1. 一般来说，存储过程实现的功能要复杂一点，而函数的实现的功能针对性比较强。
+
+2. 对于存储过程来说可以返回参数和多个返回值，而函数只能返回值或者表对象。
+
+3. 存储过程一般是作为一个独立的部分来执行，而函数可以作为查询语句的一个部分来调用，由于函数可以返回一个表对象，因此它可以在查询语句中位于FROM关键字的后面。
+
+4. 当存储过程和函数被执行的时候，SQL Manager 会到 procedure cache 中去取相应的查询语句，加快效率。
+
 
 事务
 ---------
