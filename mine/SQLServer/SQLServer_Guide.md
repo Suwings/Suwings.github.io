@@ -389,6 +389,35 @@ insert into students values('000','XXX','男','1999-12-31','95034')
 DROP TRIGGER TRIGER_Students_Insert;
 ```
 
+数据库函数种类
+---------
+
+还记得前面写的“储存函数”吗，那是用户自定义函数？现在我们将大致过一下数据库系统函数。
+
+- 聚合函数
+聚合函数对一组值执行计算，并返回单个值。 在 select 列表或 SELECT 语句的 HAVING 子句中允许使用它们。 可以将聚合与 GROUP BY 子句结合使用，来计算行类别的聚合。
+
+- 分析函数
+解析函数基于一组行计算聚合值。 不过，与聚合函数不同，分析函数可能针对每个组返回多行。 可以使用分析函数来计算移动平均线、运行总计、百分比或一个组内的前 N 个结果。
+
+- 排名函数
+排名函数为分区中的每一行返回一个排名值。 根据所用函数的不同，某些行可能与其他行接收到相同的值。 排名函数具有不确定性。
+
+- 行集函数
+行集函数 返回可在 SQL 语句中像表引用一样使用的对象。
+
+- 标量函数
+对单一值进行运算，然后返回单一值。 只要表达式有效，即可使用标量函数。
+
+
+**关于确定性与不确定性函数的解释**
+
+只要使用特定的输入值集并且数据库具有相同的状态，那么不管何时调用，确定性函数始终都会返回相同的结果。 即使访问的数据库的状态不变，每次使用特定的输入值集调用非确定性函数都可能会返回不同的结果。 例如，函数 AVG 对上述给定的限定条件始终返回相同的值，但返回当前 datetime 值的 GETDATE 函数始终会返回不同的结果。
+
+**关于函数**
+
+关于数据库函数，那实在是太多了，推荐各位边学边用。
+
 数据库范式
 ---------
 
@@ -415,6 +444,8 @@ DROP TRIGGER TRIGER_Students_Insert;
 参考文献
 ---------
 > [https://docs.microsoft.com/zh-cn/sql/t-sql/](https://docs.microsoft.com/zh-cn/sql/t-sql/)
+
+> [http://dcx.sap.com/1101/zh/dbreference_zh11/rf-part-using.html](http://dcx.sap.com/1101/zh/dbreference_zh11/rf-part-using.html)
 
 > [https://www.cnblogs.com/rdst/p/4727063.html](https://www.cnblogs.com/rdst/p/4727063.html)
 
