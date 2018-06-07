@@ -409,7 +409,6 @@ DROP TRIGGER TRIGER_Students_Insert;
 - 标量函数
 对单一值进行运算，然后返回单一值。 只要表达式有效，即可使用标量函数。
 
-
 **关于确定性与不确定性函数的解释**
 
 只要使用特定的输入值集并且数据库具有相同的状态，那么不管何时调用，确定性函数始终都会返回相同的结果。 即使访问的数据库的状态不变，每次使用特定的输入值集调用非确定性函数都可能会返回不同的结果。 例如，函数 AVG 对上述给定的限定条件始终返回相同的值，但返回当前 datetime 值的 GETDATE 函数始终会返回不同的结果。
@@ -417,6 +416,52 @@ DROP TRIGGER TRIGER_Students_Insert;
 **关于函数**
 
 关于数据库函数，那实在是太多了，推荐各位边学边用。
+
+
+游标
+---------
+游标是对查询的结果集合进行一个自定义的选择，可以向上游动，向下游动，选取某一行的结果单独输出。
+
+游标选择取决于是否需要更改或只需查看的数据：
+
+- 如果你只需浏览的结果，而不是更改数据集，使用只进或静态光标。
+- 如果你有大型结果集和需要选择只需几行，使用键集光标。
+- 如果你想要同步的结果集与最近添加、 更改，并通过所有的并发用户中删除，请使用动态光标。
+
+详细解释：
+[只进游标](https://docs.microsoft.com/zh-cn/sql/ado/guide/data/forward-only-cursors?view=sql-server-2017) 典型的默认游标类型，可以仅向前移动结果集。更改结果所有人可见。
+[静态游标](https://docs.microsoft.com/zh-cn/sql/ado/guide/data/static-cursors?view=sql-server-2017) 支持滚动，静态游标总是显示结果集和第一次打开游标时。如果其他程序更改的表，其他已使用的游标值不会变化。如果你的应用程序并不需要检测数据改变，而且需要滚动，静态游标是最佳选择。
+[动态游标](https://docs.microsoft.com/zh-cn/sql/ado/guide/data/dynamic-cursors?view=sql-server-2017)所有的 insert、 update 和 delete 语句所做的所有用户都通过游标可见。
+
+一份简单的游标代码如下：
+```sql
+-- 最简单的游标
+declare @no char(6)
+declare @name nvarchar(20)
+declare @sex nchar(1)
+declare @dept nvarchar(20)
+declare cur_student cursor for --申明游标
+	select sno,sname,ssex from students
+
+open cur_student
+
+fetch next from cur_student into @no,@name,@sex
+
+while @@FETCH_STATUS<>-1
+begin
+	print '----------'
+	print '@no:'+@no
+	print '@name:'+@name
+	print '@sex:'+@sex
+	print '----------'
+	fetch next from cur_student into @no,@name,@sex
+end
+
+-- 释放游标
+close cur_student
+deallocate cur_student
+```
+
 
 数据库范式
 ---------
