@@ -428,9 +428,11 @@ DROP TRIGGER TRIGER_Students_Insert;
 - 如果你有大型结果集和需要选择只需几行，使用键集光标。
 - 如果你想要同步的结果集与最近添加、 更改，并通过所有的并发用户中删除，请使用动态光标。
 
-详细解释：
+**游标的具体分类:**
+
 [只进游标](https://docs.microsoft.com/zh-cn/sql/ado/guide/data/forward-only-cursors?view=sql-server-2017) 典型的默认游标类型，可以仅向前移动结果集。更改结果所有人可见。
 [静态游标](https://docs.microsoft.com/zh-cn/sql/ado/guide/data/static-cursors?view=sql-server-2017) 支持滚动，静态游标总是显示结果集和第一次打开游标时。如果其他程序更改的表，其他已使用的游标值不会变化。如果你的应用程序并不需要检测数据改变，而且需要滚动，静态游标是最佳选择。
+[键集游标](https://docs.microsoft.com/zh-cn/sql/ado/guide/data/keyset-cursors?view=sql-server-2017) 键集游标提供的功能，以检测更改的静态和动态游标之间的功能。 如静态游标，它不始终检测到的成员资格和顺序的结果集的更改。 动态游标，像它未在结果集中检测更改的行的值。
 [动态游标](https://docs.microsoft.com/zh-cn/sql/ado/guide/data/dynamic-cursors?view=sql-server-2017)所有的 insert、 update 和 delete 语句所做的所有用户都通过游标可见。
 
 一份简单的游标代码如下：
