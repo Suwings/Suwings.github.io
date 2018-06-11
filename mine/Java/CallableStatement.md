@@ -21,6 +21,7 @@ proc.setString(1, "95031");
 //设置返回值接受
 proc.registerOutParameter(2, Types.VARCHAR);
 proc.execute();
+
 //获取结果
 String res = proc.getString(2);
 System.out.println("Res: "+res);
