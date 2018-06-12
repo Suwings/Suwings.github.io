@@ -4,9 +4,14 @@ import json
 import os
 
 
-DO_PATH = "D:\\MINE_Pro\\MCSM繁体"
-DO_EXT = ["html", "js"]
+# 进行的目录
+DO_PATH = "D:\\MINE_Pro\\MCSM_TR"
+# 转换的后缀文件
+DO_EXT = ["html", "js", "css", "json"]
+# 文件编码
 DO_CODEING = "utf8"
+# 过滤的目录
+FIL_DIRNAME = ["public\\"]
 
 
 def req_simplified_to_traditional(text):
@@ -31,21 +36,32 @@ def dirTree(path, funback):
             funback(os.path.join(root, file))  # 根目录与文件名组合，形成绝对路径。
 
 
+def is_allowd_dirname(real_path):
+    for v in FIL_DIRNAME:
+        if v == "":
+            continue
+        if v in real_path:
+            return False
+    return True
+
+
 def callback(real_path):
     if os.path.isfile(real_path):
+        if not is_allowd_dirname(real_path):
+            print("PASS_PARH:", real_path)
+            return
         try:
             extend_name = real_path.split('.')[1]
         except Exception:
-            extend_name = ""
+            extend_name = "__None__"
             pass
         if not extend_name in DO_EXT:
-            # print("DO_PATH:", real_path, "is Not allow extend name.")
+            # is Not allow extend name.
             return
         with open(real_path, 'r', encoding=DO_CODEING) as f:
             text = f.read()
             res_str = req_simplified_to_traditional(text)
-            write_all_to_file(real_path, res_str)
-            # print(res_str)
+        write_all_to_file(real_path, res_str)
     else:
         print("DO_PATH:", real_path, "is Not File.")
 
