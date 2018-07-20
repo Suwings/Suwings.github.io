@@ -1,6 +1,6 @@
 Java 调用储存过程片段
 ---------
-
+ 
 一个 SQLServer 的储存过程是这样的:
 ```sql
 create proc search_student(
