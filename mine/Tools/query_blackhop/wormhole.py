@@ -70,7 +70,12 @@ def wormhole_info_text(wormhole_json):
     -----资源---
     普通边域矿床
     --------
+
+    {'status': '未找到该星系!', 'solar': 'J00100、'}
     '''
+
+    if not 'name' in wormhole_json.keys():
+        return "此虫洞数据库中不存在!"
     template = '虫洞 ' + wormhole_json['name'] + ' | '
     template = template + ' ' + wormhole_json['level'] + '级虫洞\n'
 
