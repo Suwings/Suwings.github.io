@@ -8,15 +8,15 @@ Suwings.github.io [Github Page]
 - 发表文章时代码外链
 - 文件与数据外链
 
-此处有价值文件不多，建议不要 Star，Watch 或 Fork，当然你硬要也可以（专业骗）。
+此处有价值文件不多，建议不要 Star，Watch 或 Fork。
 
 <br>
+
+不允许发起 Issues 或者 pull requests，如有，直接拒绝。
 
 
 > 含有隐私与个人信息的代码和文件不会上传于此，如果你没有找到你需要文件，可能已经删除，可以联系作者。
 
 > 参考页面: [https://www.suwings.top/](https://www.suwings.top/)
-
-
 
 
