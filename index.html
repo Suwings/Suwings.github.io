@@ -2,22 +2,41 @@
 <html lang="zh-CN">
 
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="Content-Language" content="zh-CN" />
-	<meta http-equiv="refresh" content="0; url=public/index.html">
-	<meta name="renderer" content="webkit" />
-	<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no" />
-
-	<title>Suwings | Software | Website | Other</title>
-	<script type="text/javascript">
-		window.location.href = './public/index.html';
-	</script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no" />
+    <title>Polymerization Search</title>
+    <link href="./favicon.ico" rel="shortcut icon" />
+    <style>
+        body,html{margin:0;padding:0;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif}*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.container{width:92%;max-width:1100px;margin:30vh auto auto;overflow:hidden}@media (max-width:760px){.container{margin-top:20vh}}.search-input{overflow:hidden;border-radius:2px;box-shadow:0 0 5px #888;background-color:#fff;margin:8px}.search-input>input{border:none;margin:0;height:100%;width:100%;min-height:40px;padding:0 8px}.search-btn{padding-left:8px;text-align:center}.search-btn>button{background-color:#f2f2f2;border:1px solid #f2f2f2;color:#757575;font-family:arial,sans-serif;font-size:13px;font-weight:700;margin:11px 4px;min-width:54px;padding:0 16px;text-align:center;min-height:44px;cursor:pointer;box-shadow:0 0 2px #a7a7a7}.search-tip{overflow:hidden}.search-tip>p{display:inline-block;padding:4px 8px;color:#3a3838;text-align:center;box-shadow:0 0 2px #a7a7a7;font-weight:700;font-size:13px;cursor:pointer;border-radius:2px;background-color:#cac9c9;margin-left:8px;margin-bottom:8px;margin-top:0}
+    </style>
 </head>
 
 <body>
-	<p>正在重定向,请稍等.....</p>
+    <div class="container">
+        <h3 style="padding-left: 8px;">Polymerization Search</h3>
+        <div class="search-input sbibod">
+            <input id="search-context" oninput="PAGE.input(0);" onkeydown="PAGE.input(-1);" autocomplete="off"
+                placeholder="Hello World | 你好 世界 | Bonjour, le monde | Привет | こんにちは世界 | Ciao, mondo | Hallo, Welt | 안녕 세상 | Saluton mondo.">
+        </div>
+        <div id="search-tip-block" class="search-tip">
+        </div>
+        <div class="search-btn">
+            <button onclick="PAGE.search('baidu');">Baidu 搜索</button>
+            <button onclick="PAGE.search('bing-a');">Bing 国内</button>
+            <button onclick="PAGE.search('google-a');">Google 代理</button>
+            <button onclick="PAGE.search('bing-b');">Bing 国际</button>
+            <button onclick="PAGE.search('google');">Google 搜索</button>
+            <button onclick="PAGE.search('github');">Github 搜索</button>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+    </script>
 </body>
 
 </html>
