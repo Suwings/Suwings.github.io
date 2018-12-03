@@ -12,7 +12,6 @@
     <title>Suwings Search</title>
 
     <link href="./favicon.ico" rel="shortcut icon" />
-<<<<<<< HEAD
 
     <script type="text/javascript">
         (function () {
@@ -25,15 +24,6 @@
     </script>
 
     <link type="text/css" rel="stylesheet" href="static/main.css" />
-=======
-    
-    <script type="text/javascript"> 
-        if(window.location.href.indexOf("http://") != -1) window.location.href="https://www.suwings.top/";
-    </script>
-    <style>
-        body,html{margin:0;padding:0;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif}*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.container{width:92%;max-width:1100px;margin:30vh auto auto;overflow:hidden}@media (max-width:760px){.container{margin-top:20vh}}.search-input{overflow:hidden;border-radius:2px;box-shadow:0 0 5px #888;background-color:#fff;margin:8px}.search-input>input{border:none;margin:0;height:100%;width:100%;min-height:40px;padding:0 8px}.search-btn{padding-left:8px;text-align:center}.search-btn>button{background-color:#f2f2f2;border:1px solid #f2f2f2;color:#757575;font-family:arial,sans-serif;font-size:13px;font-weight:700;margin:11px 4px;min-width:54px;padding:0 16px;text-align:center;min-height:44px;cursor:pointer;box-shadow:0 0 2px #a7a7a7}.search-tip{overflow:hidden}.search-tip>p{display:inline-block;padding:4px 8px;color:#3a3838;text-align:center;box-shadow:0 0 2px #a7a7a7;font-weight:700;font-size:13px;cursor:pointer;border-radius:2px;background-color:#cac9c9;margin-left:8px;margin-bottom:8px;margin-top:0}
-    </style>
->>>>>>> 7f71847da20c84f3cc6160275d02d43adcadbdcb
 </head>
 
 <body>
@@ -54,17 +44,9 @@
             <button onclick="PAGE.search('github');">Github 搜索</button>
         </div>
     </div>
-<<<<<<< HEAD
 
 
     <script type="text/javascript" src="static/app.js"></script>
-=======
- 
-
-    <script type="text/javascript">
-        !function(e){var t={};function n(o){if(t[o])return t[o].exports;var r=t[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)n.d(o,r,function(t){return e[t]}.bind(null,r));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t,n){"use strict";n(1),n(2),n(3),n(4)},function(e,t,n){},function(e,t,n){},function(e,t,n){"use strict";window.PAGE={},window.print=function(e){console.log(e)}},function(e,t,n){"use strict";var o=function(e){return e&&e.__esModule?e:{default:e}}(n(5));var r=document.getElementById("search-context");PAGE.jsnopToBaidu=function(e){if(""!=e){var t=document.createElement("script");t.src="https://www.baidu.com/su?wd="+e+"&cb=PAGE.baiducb",document.body.appendChild(t)}},PAGE.gotoPage=function(e){window.location.href=e},PAGE.search=function(e){var t=r.value;t=encodeURIComponent(t);var n=null;"baidu"==e&&(n="https://www.baidu.com/s?ie=UTF-8&wd="+t,PAGE.gotoPage(n)),"bing-a"==e&&(n="https://cn.bing.com/search?q="+t+"&ensearch=0",PAGE.gotoPage(n)),"bing-b"==e&&(n="https://cn.bing.com/search?q="+t+"&ensearch=1",PAGE.gotoPage(n)),"google"==e&&(n="https://www.google.com.hk/search?q="+t,PAGE.gotoPage(n)),"google-a"==e&&(n="https://suwings-link.glitch.me/search?q="+t,PAGE.gotoPage(n)),"github"==e&&(n="https://github.com/search?q="+t,PAGE.gotoPage(n))},PAGE.input=function(e){var t=r.value;if(-1!=e||13!=window.event.keyCode&&10!=window.event.keyCode){if(0==e){if("'"==(t=encodeURIComponent(t)).trim())return;t.trim().length>0?PAGE.jsnopToBaidu(t):document.getElementById("search-tip-block").innerHTML=""}}else PAGE.search("baidu")};var i=document.getElementById("search-tip-block");PAGE.baiducb=function(e){i.innerHTML="";if(e&&e.hasOwnProperty("s")&&e.s.length>0){var t=null,n=0;for(var r in e.s)n++,t=(t='<p id="$id">$text2</p>'.replace(/\$text2/gim,o.default.encode(e.s[r].toString()))).replace(/\$id/gim,"linke_tip_"+n),i.innerHTML+=t}},i.onclick=function(e){if(e){var t=e.target;if(console.log(t),t!=i){var n=t.innerHTML;document.getElementById("search-context").value=o.default.decode(n)}}}},function(e,t,n){"use strict";e.exports={encode:function(e){return e.replace(/&/gim,"&amp;").replace(/</gim,"&lt;").replace(/>/gim,"&gt;").replace(/\"/gim,"&quot;").replace(/\'/gim,"&apos;").replace(/ /gim,"&nbsp;")},encodejs:function(e){return e.replace(/\"/gim,'\\"').replace(/\'/gim,"\\'")},decode:function(e){return e.replace(/&lt;/gim,"<").replace(/&gt;/gim,">").replace(/&quot;/gim,'"').replace(/&apos;/gim,"'").replace(/&nbsp;/gim," ").replace(/<script>/gim,"").replace(/&amp;/gim,"&")}}}]);
-    </script>
->>>>>>> 7f71847da20c84f3cc6160275d02d43adcadbdcb
 </body>
 
 </html>
