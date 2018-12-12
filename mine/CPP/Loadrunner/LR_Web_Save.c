@@ -16,6 +16,7 @@ Action()
 	                   
 
 	lr_message("Value is %s",lr_eval_string("{leon}"));
+	//输出相应截取内容
 
 	return 0;
 }
