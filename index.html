@@ -16,7 +16,7 @@
     <script type="text/javascript">
         (function () {
             //Https 跳转
-            var isHttps = true;
+            var isHttps = false;
             if (isHttps && window.location.href.indexOf("http://") != -1) {
                 window.location.href = "https://www.suwings.top";
             }
@@ -37,7 +37,7 @@
         </div>
         <div class="search-btn">
             <button onclick="PAGE.search('baidu');">Baidu 搜索</button>
-            <button onclick="PAGE.search('bing-a');">Bing 国内</button>
+            <button onclick="PAGE.search('url','tieba.baidu.com');">Tieba 搜索</button>
             <button onclick="PAGE.search('google-a');">Google 代理</button>
             <button onclick="PAGE.search('bing-b');">Bing 国际</button>
             <button onclick="PAGE.search('google');">Google 搜索</button>
