@@ -12,7 +12,7 @@ Suwings.github.io [Github Page]
 
 <br>
 
-不允许发起 Issues 或者 pull requests，如有，直接拒绝。
+不建议发起 Issue 或者 pull request，如有，直接删除。
 
 
 > 含有隐私与个人信息的代码和文件不会上传于此，如果你没有找到你需要文件，可能已经删除，可以联系作者。
