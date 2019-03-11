@@ -18,12 +18,12 @@ def get_one_webstie(url, mainElem, linkElem, TimeElem):
     return results
 
 
-# news_center += get_one_webstie("http://www.gov.cn/zhengce/zuixin.htm",
-#                                ".news_box>.list h4", 'a', 'span.date')
-# news_center += get_one_webstie("http://www.miit.gov.cn/n1146295/n1652858/n1653018/index.html",
-#                                ".clist_con li", 'a', 'span>a')
-news_center += get_one_webstie("http://www.miit.gov.cn/gdnps/wjfbindex.jsp",
-                               "tbody#contentBody tr", 'td>a', 'td')
+news_center += get_one_webstie("http://www.gov.cn/zhengce/zuixin.htm",
+                               ".news_box>.list h4", 'a', 'span.date')
+news_center += get_one_webstie("http://www.miit.gov.cn/n1146295/n1652858/n1653018/index.html",
+                               ".clist_con li", 'a', 'span>a')
+# news_center += get_one_webstie("http://www.miit.gov.cn/gdnps/wjfbindex.jsp",
+#                                "tbody#contentBody tr", 'td>a', 'td')
 
 
 # debug all news
@@ -32,3 +32,10 @@ for news in news_center:
     print(str(news_count) + "." + news['text'] +
           "\n 时间 "+news['time']+" | 链接：" + news['href'])
     news_count += 1
+
+# 标题 text
+# 链接 text
+# 时间 time
+# 爬取时间 time
+# 简介 text(24)
+# 内容指针 int
