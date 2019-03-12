@@ -1,9 +1,9 @@
+import os
 import time
+from urllib.parse import urlparse
 
 import pymysql
 from pyquery import PyQuery as pquery
-from urllib.parse import urlparse
-
 
 # 类似的表
 # 标题 text 不可空
@@ -30,7 +30,7 @@ def insert_pa_data(data):
     # INSERT INTO
     sql = "insert into `news_a1` (`title`, `domain`, `link`, `time`, `get_time`, `Introduction`, `context`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '0');" % (
         data['title'],
-        data['url'].netloc,
+        data['url'],
         data['href'],
         data['time'],
         time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time())),
@@ -46,46 +46,64 @@ def insert_pa_data(data):
         print(err)
 
 
-def get_one_webstie(url, mainElem, linkElem, TimeElem):
+def get_one_webstie(url, mainElem, linkElem, TimeElem, titleElem=None):
     document = pquery(url, encoding='utf-8')
     objs = document.find(mainElem).items()
     results = []
     for v in objs:
         tmps = {}
+        # 解析 ParseResult(scheme='http', netloc='www.chenxm.cc', path='/post/719.html', params='', query='', fragment='')
+        url_obj = urlparse(url)
         # 标题
-        tmps['title'] = v.children(linkElem).text()
+        if titleElem == None:
+            tmps['title'] = v.children(linkElem).text()
+        else:
+            tmps['title'] = v.children(titleElem).text()
         # 链接
-        tmps['href'] = v.children(linkElem).attr('href')
+        href_url = v.children(linkElem).attr('href')
+        if href_url[:4] in 'http':
+            tmps['href'] = href_url
+        else:
+            tmps['href'] = url_obj.scheme + "://" + url_obj.netloc + os.path.normpath(os.path.join(
+                os.path.dirname(url_obj.path), href_url)).replace("\\", "/")
         # 文本时间
         tmps['time'] = v.children(TimeElem).text()
         # 原始URL
         tmps['original_url'] = url
-        # 解析 ParseResult(scheme='http', netloc='www.chenxm.cc', path='/post/719.html', params='', query='', fragment='')
-        tmps['url'] = urlparse(url)
+        # 数据库中的 URL 是解析完成的 URL
+        tmps['url'] = os.path.normpath(url_obj.path)
+        # 主机名
+        tmps['netloc'] = url_obj.netloc
         results.append(tmps)
     return results
 
 
-news_center = get_one_webstie("http://www.gov.cn/zhengce/zuixin.htm",
-                              ".news_box>.list h4", 'a', 'span.date')
+news_center = []
+news_center += get_one_webstie("http://www.gov.cn/zhengce/zuixin.htm",
+                               ".news_box>.list h4", 'a', 'span.date')
 news_center += get_one_webstie("http://www.miit.gov.cn/n1146295/n1652858/n1653018/index.html",
                                ".clist_con li", 'a', 'span>a')
+news_center += get_one_webstie("http://www.mohrss.gov.cn/gkml/zcjd/index.html",
+                               "#documentContainer>.row", '.mc a', '.fbrq>font',
+                               )
 
 news_count = 1
 for news in news_center:
-    print(str(news_count) + "." + news['title'] + " "+news['url'].netloc +
+    print(str(news_count) + "." + news['title'] + " " +
           "\n 时间 "+news['time']+" | 链接：" + news['href'])
     news_count += 1
-    insert_pa_data(news)
-    if news_count > 10:
-        break
+    # insert_pa_data(news)
+    # if news_count > 10:
+    #     break
 
 
 """
+
 可能的问题
-URL 处理
+URL 处理1x
 ../../../n1146295/n1652858/n1653018/c6635223/content.html
 http://www.gov.cn/zhengce/content/2018-12/29/content.html
 /zhengce/2019-01/25/content_5361054.htm
 xxx/xxxx.html
+
 """
