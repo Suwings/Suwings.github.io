@@ -30,7 +30,7 @@ def insert_pa_data(data):
     # INSERT INTO
     sql = "insert into `news_a1` (`title`, `domain`, `link`, `time`, `get_time`, `Introduction`, `context`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '0');" % (
         data['title'],
-        data['url'],
+        data['netloc'],
         data['href'],
         data['time'],
         time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time())),
@@ -86,10 +86,14 @@ news_center += get_one_webstie("http://www.miit.gov.cn/n1146295/n1652858/n165301
 news_center += get_one_webstie("http://www.mohrss.gov.cn/gkml/zcjd/index.html",
                                "#documentContainer>.row", '.mc a', '.fbrq>font',
                                )
+news_center += get_one_webstie("http://www.moj.gov.cn/news/node_zfyw.html",
+                               "ul.font_black_16>li", 'dt>a', 'dd',
+                               )
+
 
 news_count = 1
 for news in news_center:
-    print(str(news_count) + "." + news['title'] + " " +
+    print(str(news_count) + "." + news['title'] +
           "\n 时间 "+news['time']+" | 链接：" + news['href'])
     news_count += 1
     # insert_pa_data(news)
