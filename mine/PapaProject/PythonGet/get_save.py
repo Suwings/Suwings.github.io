@@ -79,13 +79,13 @@ def get_one_webstie(url, mainElem, linkElem, TimeElem, titleElem=None):
 
 
 news_center = []
-news_center += get_one_webstie("http://www.gov.cn/zhengce/zuixin.htm",
-                               ".news_box>.list h4", 'a', 'span.date')
-news_center += get_one_webstie("http://www.miit.gov.cn/n1146295/n1652858/n1653018/index.html",
-                               ".clist_con li", 'a', 'span>a')
-news_center += get_one_webstie("http://www.mohrss.gov.cn/gkml/zcjd/index.html",
-                               "#documentContainer>.row", '.mc a', '.fbrq>font',
-                               )
+# news_center += get_one_webstie("http://www.gov.cn/zhengce/zuixin.htm",
+#                                ".news_box>.list h4", 'a', 'span.date')
+# news_center += get_one_webstie("http://www.miit.gov.cn/n1146295/n1652858/n1653018/index.html",
+#                                ".clist_con li", 'a', 'span>a')
+# news_center += get_one_webstie("http://www.mohrss.gov.cn/gkml/zcjd/index.html",
+#                                "#documentContainer>.row", '.mc a', '.fbrq>font',
+#                                )
 news_center += get_one_webstie("http://www.moj.gov.cn/news/node_zfyw.html",
                                "ul.font_black_16>li", 'dt>a', 'dd',
                                )
@@ -96,9 +96,9 @@ for news in news_center:
     print(str(news_count) + "." + news['title'] +
           "\n 时间 "+news['time']+" | 链接：" + news['href'])
     news_count += 1
-    # insert_pa_data(news)
-    # if news_count > 10:
-    #     break
+    insert_pa_data(news)
+    if news_count > 10:
+        break
 
 
 """
