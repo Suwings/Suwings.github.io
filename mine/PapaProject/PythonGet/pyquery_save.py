@@ -4,6 +4,7 @@ from urllib.parse import urlparse
 
 import pymysql
 from pyquery import PyQuery as pquery
+import requests
 
 # 类似的表
 # 标题 text 不可空
@@ -48,7 +49,19 @@ def insert_pa_data(data):
         print(err)
 
 
-def get_context_website(go_url, configs):
+def init_reptile(tar_url):
+    web_res_context = requests.get(tar_url)
+    web_res_context.encoding = 'utf-8'
+    document = pquery(web_res_context.text)
+    # 添加属性
+    reptile = {}
+    reptile['ext_tar_url'] = tar_url
+    reptile['document'] = document
+
+    return reptile
+
+
+def get_context_website(reptile, configs):
     """
     只要页面匹配，即可抓取，用于文章匹配
     Use: get_context_website({
@@ -56,8 +69,8 @@ def get_context_website(go_url, configs):
         "标题":"#titile"
     })
     """
+    document = reptile['document']
     result = {}
-    document = pquery(go_url, encoding='utf-8')
     for k, v in configs.items():
         jq_elems = document.find(v).items()
         tmp_context = ""
@@ -68,14 +81,15 @@ def get_context_website(go_url, configs):
     return result
 
 
-def get_one_webstie(url, mainElem, linkElem, TimeElem, titleElem=None):
+def get_one_webstie(reptile, mainElem, linkElem, TimeElem, titleElem=None):
     """仅仅用于抓取新闻标题"""
-    document = pquery(url, encoding='utf-8')
+    document = reptile['document']
     objs = document.find(mainElem).items()
     results = []
     for v in objs:
         tmps = {}
         # 解析 ParseResult(scheme='http', netloc='www.chenxm.cc', path='/post/719.html', params='', query='', fragment='')
+        url = reptile['ext_tar_url']
         url_obj = urlparse(url)
         # 标题
         if titleElem == None:
@@ -106,18 +120,19 @@ def get_one_webstie(url, mainElem, linkElem, TimeElem, titleElem=None):
 #     "context": "#content"
 # })
 
-get_context_website('http://www.miit.gov.cn/n1146290/n1146392/c6669125/content.html', {
-    "title": "#con_title",
-    "context": "div#con_con"
-})
+# get_context_website(init_reptile('http://www.miit.gov.cn/n1146290/n1146392/c6669125/content.html'), {
+#     "title": "#con_title",
+#     "context": "div#con_con"
+# })
 
 
 news_center = []
 
-# news_center += get_one_webstie("http://www.gov.cn/zhengce/zuixin.htm",
-#                                ".news_box>.list h4", 'a', 'span.date')
-# news_center += get_one_webstie("http://www.miit.gov.cn/n1146295/n1652858/n1653018/index.html",
-#                                ".clist_con li", 'a', 'span>a')
+news_center += get_one_webstie(init_reptile("http://www.gov.cn/zhengce/zuixin.htm"),
+                               ".news_box>.list h4", 'a', 'span.date')
+
+news_center += get_one_webstie(init_reptile("http://www.miit.gov.cn/n1146295/n1652858/n1653018/index.html"),
+                               ".clist_con li", 'a', 'span>a')
 # news_center += get_one_webstie("http://www.mohrss.gov.cn/gkml/zcjd/index.html",
 #                                "#documentContainer>.row", '.mc a', '.fbrq>font',
 #                                )
@@ -125,14 +140,14 @@ news_center = []
 #                                "ul.font_black_16>li", 'dt>a', 'dd',)
 
 
-# news_count = 1
-# for news in news_center:
-#     print(str(news_count) + "." + news['title'] +
-#           "\n 时间 "+news['time']+" | 链接：" + news['href'])
-#     news_count += 1
-#     insert_pa_data(news)
-#     if news_count > 10:
-#         break
+news_count = 1
+for news in news_center:
+    print(str(news_count) + "." + news['title'] +
+          "\n 时间 "+news['time']+" | 链接：" + news['href'])
+    news_count += 1
+    # insert_pa_data(news)
+    # if news_count > 10:
+    #     break
 
 
 """
