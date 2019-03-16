@@ -10,20 +10,22 @@ from pyquery import PyQuery as pquery
 # 链接 text 不可空
 # 时间 time
 # 爬取时间 time
+# 网站标题
+# 网站编码
 # 简介 text(24)
 # 内容指针 int
 
-try:
-    BD_coon = pymysql.connect(
-        host='127.0.0.1', user='root', passwd='toortoor',
-        port=3306, db='papapa', charset='utf8'
-    )
-except:
-    print("数据库连接失败，程序停止.")
-    exit(0)
+# try:
+#     BD_coon = pymysql.connect(
+#         host='127.0.0.1', user='root', passwd='toortoor',
+#         port=3306, db='papapa', charset='utf8'
+#     )
+# except:
+#     print("数据库连接失败，程序停止.")
+#     exit(0)
 
 
-cursor = BD_coon.cursor()
+# cursor = BD_coon.cursor()
 
 
 def insert_pa_data(data):
@@ -46,9 +48,31 @@ def insert_pa_data(data):
         print(err)
 
 
+def get_context_website(go_url, configs):
+    """
+    只要页面匹配，即可抓取，用于文章匹配
+    Use: get_context_website({
+        "时间":"a>time",
+        "标题":"#titile"
+    })
+    """
+    result = {}
+    document = pquery(go_url, encoding='utf-8')
+    for k, v in configs.items():
+        jq_elems = document.find(v).items()
+        tmp_context = ""
+        for je in jq_elems:
+            tmp_context += je.text()
+        result[k] = tmp_context
+    print(result)
+    return result
+
+
 def get_one_webstie(url, mainElem, linkElem, TimeElem, titleElem=None):
+    """仅仅用于抓取新闻标题"""
     document = pquery(url, encoding='utf-8')
     objs = document.find(mainElem).items()
+    title = document.title
     results = []
     for v in objs:
         tmps = {}
@@ -78,7 +102,19 @@ def get_one_webstie(url, mainElem, linkElem, TimeElem, titleElem=None):
     return results
 
 
+# get_context_website('http://www.moj.gov.cn/news/content/2019-03/15/zfyw_230595.html', {
+#     "title": ".con_bt",
+#     "context": "#content"
+# })
+
+get_context_website('http://www.miit.gov.cn/n1146290/n1146392/c6669125/content.html', {
+    "title": "#con_title",
+    "context": "div#con_con"
+})
+
+
 news_center = []
+
 # news_center += get_one_webstie("http://www.gov.cn/zhengce/zuixin.htm",
 #                                ".news_box>.list h4", 'a', 'span.date')
 # news_center += get_one_webstie("http://www.miit.gov.cn/n1146295/n1652858/n1653018/index.html",
@@ -86,19 +122,18 @@ news_center = []
 # news_center += get_one_webstie("http://www.mohrss.gov.cn/gkml/zcjd/index.html",
 #                                "#documentContainer>.row", '.mc a', '.fbrq>font',
 #                                )
-news_center += get_one_webstie("http://www.moj.gov.cn/news/node_zfyw.html",
-                               "ul.font_black_16>li", 'dt>a', 'dd',
-                               )
+# news_center += get_one_webstie("http://www.moj.gov.cn/news/node_zfyw.html",
+#                                "ul.font_black_16>li", 'dt>a', 'dd',)
 
 
-news_count = 1
-for news in news_center:
-    print(str(news_count) + "." + news['title'] +
-          "\n 时间 "+news['time']+" | 链接：" + news['href'])
-    news_count += 1
-    insert_pa_data(news)
-    if news_count > 10:
-        break
+# news_count = 1
+# for news in news_center:
+#     print(str(news_count) + "." + news['title'] +
+#           "\n 时间 "+news['time']+" | 链接：" + news['href'])
+#     news_count += 1
+#     insert_pa_data(news)
+#     if news_count > 10:
+#         break
 
 
 """
