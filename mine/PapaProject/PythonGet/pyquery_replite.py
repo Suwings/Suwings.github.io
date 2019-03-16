@@ -34,7 +34,7 @@ def comp_http_url(base_url, tar_url):
 def reptile_resurgence_links(tar_url, max_layer, max_container="", a_elem="a", res_links=[], next_url=""):
     """
     爬虫层次挖掘，对目标 URL 进行多层挖链接
-    参数：目标 URL | 最大层数 | 爬取范围 | 内部使用，返回列表 | 内部使用 下一个目标
+    参数：目标 URL | 最大层数 | 爬取范围 | 爬取的a标签选择器 | 内部使用，返回列表 | 内部使用 下一个目标
     """
     if next_url != "" and next_url[:4] in 'http':
         res_links.append(next_url)
@@ -124,5 +124,9 @@ def get_one_webstie(reptile, mainElem, linkElem, TimeElem, titleElem=None):
     return results
 
 
+# print(reptile_resurgence_links(
+#     "http://www.miit.gov.cn/n1146290/n1146392/index.html", 1, ".clist_con", "ul>li>a"))
+
+
 print(reptile_resurgence_links(
-    "http://www.miit.gov.cn/n1146290/n1146392/index.html", 1, ".clist_con", "ul>li>a"))
+    "http://www.gov.cn/zhengce/zuixin.htm", 1, ".news_box", "div>ul>li>h4>a"))
