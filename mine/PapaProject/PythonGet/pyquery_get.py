@@ -72,7 +72,6 @@ def get_one_webstie(url, mainElem, linkElem, TimeElem, titleElem=None):
     """仅仅用于抓取新闻标题"""
     document = pquery(url, encoding='utf-8')
     objs = document.find(mainElem).items()
-    title = document.title
     results = []
     for v in objs:
         tmps = {}
