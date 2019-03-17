@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 import pymysql
 from pyquery import PyQuery as pquery
 import requests
+import re
 
 
 def init_reptile(tar_url):
@@ -31,7 +32,7 @@ def comp_http_url(base_url, tar_url):
     return last_url
 
 
-def reptile_resurgence_links(tar_url, max_layer, max_container="", a_elem="a", res_links=[], next_url=""):
+def reptile_resurgence_links(tar_url, max_layer, max_container="", a_elem="a", res_links=[], next_url="", callback=None):
     """
     爬虫层次挖掘，对目标 URL 进行多层挖链接
     参数：目标 URL | 最大层数 | 爬取范围 | 爬取的a标签选择器 | 内部使用，返回列表 | 内部使用 下一个目标
@@ -46,6 +47,8 @@ def reptile_resurgence_links(tar_url, max_layer, max_container="", a_elem="a", r
         # 无差别对网页爬取
         all_tag = document.find(a_elem).items()
         for tag in all_tag:
+            if callback != None:
+                callback(comp_http_url(tar_url, tag.attr('href')))
             reptile_resurgence_links(
                 tar_url, max_layer - 1,
                 max_container="",
@@ -60,6 +63,8 @@ def reptile_resurgence_links(tar_url, max_layer, max_container="", a_elem="a", r
             children_tags = tag1.children(a_elem).items()
             for tag2 in children_tags:
                 # 可以在这里增加 callback 有效减少请求次数
+                if callback != None:
+                    callback(comp_http_url(tar_url, tag2.attr('href')))
                 reptile_resurgence_links(
                     tar_url, max_layer - 1,
                     max_container=max_container,
@@ -75,18 +80,32 @@ def get_context_website(reptile, configs):
     只要页面匹配，即可抓取，用于文章匹配
     Use: get_context_website({
         "时间": "a>time",
-        "标题": "#titile"
     })
     """
     document = reptile['document']
     result = {}
     for k, v in configs.items():
-        jq_elems = document.find(v).items()
-        tmp_context = ""
-        for je in jq_elems:
-            tmp_context += je.text()
-        result[k] = tmp_context
-    print(result)
+        arr_v = v.split('||')
+        for everyelem in arr_v:
+            if everyelem == "":
+                continue
+            jq_elem = document.find(everyelem)
+            if jq_elem.length <= 0:
+                continue
+            else:
+                jq_elems = jq_elem.items()
+                tmp_context = ""
+                for je in jq_elems:
+                    tmp_context += je.text()
+                if k == 'time':
+                    time_res = re.findall(
+                        "\d{4}[-/年]{,1}\d{1,2}[-/月]{,1}\d{1,2}[日号]{,1}", tmp_context)
+                    if len(time_res) <= 0:
+                        # 如果获取不到时间，则为爬取时间为准，误差不会超过一天
+                        tmp_context = "2019-3-17"
+                    else:
+                        tmp_context = time_res[0]
+                result[k] = tmp_context
     return result
 
 
@@ -127,6 +146,18 @@ def get_one_webstie(reptile, mainElem, linkElem, TimeElem, titleElem=None):
 # print(reptile_resurgence_links(
 #     "http://www.miit.gov.cn/n1146290/n1146392/index.html", 1, ".clist_con", "ul>li>a"))
 
+def once_req():
+    links = reptile_resurgence_links(
+        "http://www.gov.cn/zhengce/zuixin.htm", 1, ".news_box", "div>ul>li>h4>a")
+    for v in links:
+        rep = init_reptile(v)
+        a = get_context_website(rep, {
+            "title": "div.article>h1||table.bd1>tbody>tr:eq(2)>td:eq(1)",
+            "time": ".pages-date||table.bd1>tbody>tr:eq(3)>td:eq(3)",
+            "context": "#UCAP-CONTENT"
+        })
+        print(a)
+        print("--------------------------")
 
-print(reptile_resurgence_links(
-    "http://www.gov.cn/zhengce/zuixin.htm", 1, ".news_box", "div>ul>li>h4>a"))
+
+once_req()
