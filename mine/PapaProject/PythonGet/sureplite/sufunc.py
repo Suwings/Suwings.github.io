@@ -80,19 +80,26 @@ def get_context_website(reptile, configs):
             # 特殊字段：time
             if k == 'time':
                 time_res = re.findall(
-                    "\d{4}[-/年]{,1}\d{1,2}[-/月]{,1}\d{1,2}[日号]{,1}",
+                    r"\d{4}[-/年]{,1}\d{1,2}[-/月]{,1}\d{1,2}[日号]{,1}",
                     tmp_context)
                 if len(time_res) <= 0:
                     # 如果获取不到时间，则为爬取时间为准，误差不会超过一天
                     tmp_context = "时间未取到"
                 else:
-                    tmp_context = time_res[0]
+                    std_time = time_res[0].replace(
+                        "年", "-").replace("月", "-").replace("日", "").replace("号", "").replace("/", "-")
+                    tmp_context = std_time
+            # 特殊: title
+            if k == 'title':
+                tmp_context = tmp_context.strip()
+                tmp_context = tmp_context.replace("\n", "")
+            # 存入字段
             result[k] = tmp_context
-        result["url"] = reptile['tar_url']
-        result["context"] = "DEBUG"
-    if not ('title' in result.keys()):
-        raise AttributeError("爬虫的某个文章请求中，结果集中没有 title 元素，一般都是选择器设置错误。"
-                             + "\nURL:" + result["url"] +
-                             "\nResult:" + str(result)
-                             )
+    # 对此单篇内容的全局属性
+    result["url"] = reptile['tar_url']
+    if not ('title' in result.keys()) or result['title'] == "":
+        print("爬虫的某个文章请求中，结果集中没有 title 元素，一般都是选择器设置错误。\nURL:" + result["url"] +
+              "\nResult:" + str(result)
+              )
+        return None
     return result

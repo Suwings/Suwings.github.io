@@ -15,6 +15,7 @@ def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config
         list_a_elem,
         res_links=[]  # BUG Note: 请小心变量重用，必须要重新声明一个新的
     )
+    context_config['ext|first_class'] = context_config['ext|second_class'] = context_config['ext|third_class'] = ""
     if len(class_list) >= 1:
         context_config['ext|first_class'] = class_list[0]
     if len(class_list) >= 2:
@@ -26,7 +27,10 @@ def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config
     for link in links:
         reptile_ready = init_reptile(link)
         operate_replite_data(reptile_ready, context_config)
+        print("正在请求:" + link)
         res = get_context_website(reptile_ready, context_config)
+        if res is None:
+            continue
         replite_results.append(res)
     # 传递到数据库层
     replite_database.replite_data_insert(replite_results)
