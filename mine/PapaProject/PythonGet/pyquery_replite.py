@@ -71,6 +71,11 @@ def get_context_website(reptile, configs):
     document = reptile['document']
     result = {}
     for k, v in configs.items():
+        # 特殊标识
+        if k[:4] == 'ext|':
+            result[k[4:]] = v
+            continue
+        # 多重选择器
         arr_v = v.split('||')
         for everyelem in arr_v:
             if everyelem == "":
@@ -82,6 +87,7 @@ def get_context_website(reptile, configs):
             tmp_context = ""
             for je in jq_elems:
                 tmp_context += je.text()
+            # 特殊字段：time
             if k == 'time':
                 time_res = re.findall(
                     "\d{4}[-/年]{,1}\d{1,2}[-/月]{,1}\d{1,2}[日号]{,1}", tmp_context)
@@ -97,7 +103,7 @@ def get_context_website(reptile, configs):
     return result
 
 
-def reptile_select_news(news_list_url, list_elem, list_a_elem, context_config):
+def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config, class_list=[]):
     """通过新闻列表页面与选择新闻显示页面的元素，来自动化爬取第一页未分类的所有新闻"""
     links = reptile_resurgence_links(
         news_list_url,
@@ -106,12 +112,18 @@ def reptile_select_news(news_list_url, list_elem, list_a_elem, context_config):
         list_a_elem,
         res_links=[]  # BUG Note: 请小心变量重用，必须要重新声明一个新的
     )
+    if len(class_list) >= 1:
+        context_config['ext|first_class'] = class_list[0]
+    if len(class_list) >= 2:
+        context_config['ext|second_class'] = class_list[1]
+    if len(class_list) >= 3:
+        context_config['ext|third_class'] = class_list[2]
     for link in links:
         res = get_context_website(init_reptile(link), context_config)
         print(res)
 
 
-reptile_select_news(
+reptile_select_context(
     'http://localhost/get.html',
     ".list",
     "ul>li>a",
@@ -119,11 +131,12 @@ reptile_select_news(
         "title": ".center>h4",
         "time": ".time",
         "context": ".context"
-    }
+    },
+    ["我自己的"]
 )
 
 
-reptile_select_news(
+reptile_select_context(
     'http://www.miit.gov.cn/n1146295/n1652858/index.html',
     ".clist_con",
     "ul>li>a",
@@ -131,11 +144,12 @@ reptile_select_news(
         "title": ".ctitle>h1||#con_title",
         "time": ".short_r||#con_time",
         "context": ".ccontent"
-    }
+    },
+    ["工信部", "B", "C"]
 )
 
 
-reptile_select_news(
+reptile_select_context(
     'http://www.gov.cn/zhengce/zuixin.htm',
     ".news_box",
     "div>ul>li>h4>a",
@@ -143,5 +157,6 @@ reptile_select_news(
         "title": "div.article>h1||table.bd1>tbody>tr:eq(2)>td:eq(1)",
         "time": ".pages-date||table.bd1>tbody>tr:eq(3)>td:eq(3)",
         "context": "#UCAP-CONTENT"
-    }
+    },
+    ["中国政府"]
 )
