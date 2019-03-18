@@ -1,3 +1,38 @@
+
+def get_one_webstie(reptile, mainElem, linkElem, TimeElem, titleElem=None):
+    """仅仅用于抓取新闻标题"""
+    document = reptile['document']
+    objs = document.find(mainElem).items()
+    results = []
+    for v in objs:
+        tmps = {}
+        # 解析 ParseResult(scheme='http', netloc='www.chenxm.cc', path='/post/719.html', params='', query='', fragment='')
+        tar_url = reptile['tar_url']
+        tar_url_obj = urlparse(tar_url)
+        # 标题
+        if titleElem == None:
+            tmps['title'] = v.children(linkElem).text()
+        else:
+            tmps['title'] = v.children(titleElem).text()
+        # 链接
+        href_url = v.children(linkElem).attr('href')
+        if href_url[:4] in 'http':
+            tmps['href'] = href_url
+        else:
+            tmps['href'] = tar_url_obj.scheme + "://" + tar_url_obj.netloc + os.path.normpath(os.path.join(
+                os.path.dirname(tar_url_obj.path), href_url)).replace("\\", "/")
+        # 文本时间
+        tmps['time'] = v.children(TimeElem).text()
+        # 原始URL
+        tmps['original_url'] = tar_url
+        # 数据库中的 URL 是解析完成的 URL
+        tmps['url'] = os.path.normpath(tar_url_obj.path)
+        # 主机名
+        tmps['netloc'] = tar_url_obj.netloc
+        results.append(tmps)
+    return results
+
+
 def reptile_resurgence_links(tar_url, max_layer, max_container="", a_elem="a", res_links=[], next_url="", callback=None):
     """
     爬虫层次挖掘，对目标 URL 进行多层挖链接
