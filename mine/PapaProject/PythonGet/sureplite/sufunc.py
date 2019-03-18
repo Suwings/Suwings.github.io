@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import os
 import re
-import time
-from urllib.parse import urlparse
 
 import requests
 from pyquery import PyQuery as pquery
@@ -23,7 +20,9 @@ def init_reptile(tar_url, encoding='utf-8'):
     return reptile
 
 
-def reptile_resurgence_links(tar_url, max_layer, max_container="", a_elem="a", res_links=[], next_url="", callback=None):
+def reptile_resurgence_links(
+        tar_url, max_layer, max_container="", a_elem="a", res_links=[],
+        next_url="", callback=None):
     """
     爬虫层次挖掘，对目标 URL 进行多层挖链接
     参数：目标 URL | 最大层数 | 爬取范围 | 爬取的a标签选择器 | 内部使用，返回列表 | 内部使用 下一个目标
@@ -40,7 +39,7 @@ def reptile_resurgence_links(tar_url, max_layer, max_container="", a_elem="a", r
         children_tags = tag1.children(a_elem).items()
         for tag2 in children_tags:
             # 可以在这里增加 callback 有效减少请求次数
-            if callback != None:
+            if callback is not None:
                 callback(comp_http_url(tar_url, tag2.attr('href')))
             reptile_resurgence_links(
                 tar_url, max_layer - 1,
@@ -81,7 +80,8 @@ def get_context_website(reptile, configs):
             # 特殊字段：time
             if k == 'time':
                 time_res = re.findall(
-                    "\d{4}[-/年]{,1}\d{1,2}[-/月]{,1}\d{1,2}[日号]{,1}", tmp_context)
+                    "\d{4}[-/年]{,1}\d{1,2}[-/月]{,1}\d{1,2}[日号]{,1}",
+                    tmp_context)
                 if len(time_res) <= 0:
                     # 如果获取不到时间，则为爬取时间为准，误差不会超过一天
                     tmp_context = "时间未取到"
@@ -92,5 +92,7 @@ def get_context_website(reptile, configs):
         result["context"] = "DEBUG"
     if not ('title' in result.keys()):
         raise AttributeError("爬虫的某个文章请求中，结果集中没有 title 元素，一般都是选择器设置错误。"
-                             + "\nURL:" + result["url"]+"\nResult:"+str(result))
+                             + "\nURL:" + result["url"] +
+                             "\nResult:" + str(result)
+                             )
     return result

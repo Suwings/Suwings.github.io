@@ -1,14 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import os
-import re
-import time
-
-import requests
-from urllib.parse import urlparse
 
 from sureplite.sufunc import reptile_resurgence_links, get_context_website, init_reptile
 from sureplite.objectdao import operate_replite_data
+from database import replite_database
 
 
 def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config, class_list=[]):
@@ -27,8 +22,11 @@ def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config
     if len(class_list) >= 3:
         context_config['ext|third_class'] = class_list[2]
     # 将新闻列表的每一个 URL 全部爬取一次并且筛选出正确文章
+    replite_results = []
     for link in links:
         reptile_ready = init_reptile(link)
         operate_replite_data(reptile_ready, context_config)
         res = get_context_website(reptile_ready, context_config)
-        print(res)
+        replite_results.append(res)
+    # 传递到数据库层
+    replite_database.replite_data_insert(replite_results)
