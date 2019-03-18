@@ -54,7 +54,7 @@ def reptile_resurgence_links(tar_url, max_layer, max_container="", a_elem="a", r
 
 def get_context_website(reptile, configs):
     """
-    只要页面匹配，即可抓取，用于文章匹配
+    只要页面匹配，即可抓取，用于文章匹配，单篇
     Use: get_context_website({
         "时间": "a>time",
     })
@@ -84,11 +84,13 @@ def get_context_website(reptile, configs):
                     "\d{4}[-/年]{,1}\d{1,2}[-/月]{,1}\d{1,2}[日号]{,1}", tmp_context)
                 if len(time_res) <= 0:
                     # 如果获取不到时间，则为爬取时间为准，误差不会超过一天
-                    tmp_context = "2019-XX-XX"
+                    tmp_context = "时间未取到"
                 else:
                     tmp_context = time_res[0]
             result[k] = tmp_context
         result["url"] = reptile['tar_url']
         result["context"] = "DEBUG"
-
+    if not ('title' in result.keys()):
+        raise AttributeError("爬虫的某个文章请求中，结果集中没有 title 元素，一般都是选择器设置错误。"
+                             + "\nURL:" + result["url"]+"\nResult:"+str(result))
     return result

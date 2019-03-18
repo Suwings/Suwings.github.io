@@ -5,9 +5,10 @@ import re
 import time
 
 import requests
-from pyquery import PyQuery as pquery
+from urllib.parse import urlparse
 
 from sureplite.sufunc import reptile_resurgence_links, get_context_website, init_reptile
+from sureplite.objectdao import operate_replite_data
 
 
 def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config, class_list=[]):
@@ -25,6 +26,9 @@ def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config
         context_config['ext|second_class'] = class_list[1]
     if len(class_list) >= 3:
         context_config['ext|third_class'] = class_list[2]
+    # 将新闻列表的每一个 URL 全部爬取一次并且筛选出正确文章
     for link in links:
-        res = get_context_website(init_reptile(link), context_config)
+        reptile_ready = init_reptile(link)
+        operate_replite_data(reptile_ready, context_config)
+        res = get_context_website(reptile_ready, context_config)
         print(res)
