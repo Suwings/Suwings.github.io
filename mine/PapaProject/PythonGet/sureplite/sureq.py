@@ -4,6 +4,7 @@
 from sureplite.sufunc import reptile_resurgence_links, get_context_website, init_reptile
 from sureplite.objectdao import operate_replite_data
 from database import replite_database
+from sureplite.sutools import comp_today
 
 
 def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config, class_list=[]):
@@ -31,6 +32,18 @@ def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config
         res = get_context_website(reptile_ready, context_config)
         if res is None:
             continue
+        # 将新闻的日期与今天比较，如果等于或大于今天，则无需判断新闻重复
+        news_time = res['time']
+        if not comp_today(news_time):
+            # 忽略掉小于今天的新闻
+            print(res['time'] + " | 过期")
+            continue
+        # 如果是今天新闻，那么比较新闻标题来判断重复
+        has_result = replite_database.replite_has_data(res)
+        if has_result:
+            print("新闻重复 | 跳过")
+            continue
+        # 将新闻加入结果集合
         replite_results.append(res)
     # 传递到数据库层
     replite_database.replite_data_insert(replite_results)

@@ -5,29 +5,29 @@ from database import replite_database
 
 replite_database.init_database()
 
-# reptile_select_context(
-#     'http://localhost/get.html',
-#     ".list",
-#     "ul>li>a",
-#     {
-#         "title": ".center>h4",
-#         "time": ".time",
-#         "context": ".context"
-#     },
-#     ["我自己的"]
-# )
+reptile_select_context(
+    'http://localhost/get.html',
+    ".list",
+    "ul>li>a",
+    {
+        "title": ".center>h4",
+        "time": ".time",
+        "context": ".context"
+    },
+    ["我自己的"]
+)
 
-# reptile_select_context(
-#     'http://www.miit.gov.cn/n1146295/n1652858/index.html',
-#     ".clist_con",
-#     "ul>li>a",
-#     {
-#         "title": ".ctitle>h1||#con_title",
-#         "time": ".short_r||#con_time",
-#         "context": ".ccontent"
-#     },
-#     ["工信部", "政策文件"]
-# )
+reptile_select_context(
+    'http://www.miit.gov.cn/n1146295/n1652858/index.html',
+    ".clist_con",
+    "ul>li>a",
+    {
+        "title": ".ctitle>h1||#con_title",
+        "time": ".short_r||#con_time",
+        "context": ".ccontent"
+    },
+    ["工信部", "政策文件"]
+)
 
 
 reptile_select_context(

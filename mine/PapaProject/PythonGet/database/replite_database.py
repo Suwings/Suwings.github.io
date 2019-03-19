@@ -20,6 +20,23 @@ def init_database():
     db_cursor = db_connect.cursor()
 
 
+def replite_has_data(replite_result):
+    """ 判断一条新闻是否已经存在于数据库中 """
+    global db_connect
+    global db_cursor
+    title = replite_result['title']
+    domain = replite_result['domain']
+    sql = "SELECT id FROM `news_a1` WHERE title='%s' AND domain='%s';" % (
+        title,
+        domain
+    )
+    db_cursor.execute(sql)
+    one_data = db_cursor.fetchone()
+    if one_data is None:
+        return False
+    return True
+
+
 def replite_data_insert(replite_results):
     #[{'title': '测试标题', 'url': 'http://localhost/list/1.html', 'context': 'DEBUG', 'time': '1999-1-1',
     #  'first_class': '我自己的', 'replite_time': '2019-03-18', 'domain': 'localhost'},
@@ -48,3 +65,9 @@ def replite_data_insert(replite_results):
             # 如果发生错误则回滚
             db_connect.rollback()
             print(err)
+
+
+if __name__ == '__main__':
+    init_database()
+    replite_has_data({'title': '国务院关于修改部分行政法规的决定', 'url': 'http://localhost/list/1.html', 'context': 'DEBUG', 'time': '1999-1-1',
+                      'first_class': '我自己的', 'replite_time': '2019-03-18', 'domain': 'www.gov.cn'})
