@@ -6,9 +6,13 @@ from sureplite.objectdao import operate_replite_data
 from database import replite_database
 from sureplite.sutools import comp_today
 
+FILTER_Before_today = False
+
 
 def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config, class_list=[]):
     """通过新闻列表页面与选择新闻显示页面的元素，来自动化爬取第一页未分类的所有新闻"""
+    print("开始收集新闻列表资料:"+news_list_url)
+    global FILTER_Before_today
     links = reptile_resurgence_links(
         news_list_url,
         1,
@@ -25,6 +29,7 @@ def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config
         context_config['ext|third_class'] = class_list[2]
     # 将新闻列表的每一个 URL 全部爬取一次并且筛选出正确文章
     replite_results = []
+    print("开始爬取:"+news_list_url)
     for link in links:
         reptile_ready = init_reptile(link)
         operate_replite_data(reptile_ready, context_config)
@@ -34,7 +39,7 @@ def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config
             continue
         # 将新闻的日期与今天比较，如果等于或大于今天，则无需判断新闻重复
         news_time = res['time']
-        if not comp_today(news_time):
+        if FILTER_Before_today and not comp_today(news_time):
             # 忽略掉小于今天的新闻
             print(res['time'] + " | 过期")
             continue

@@ -5,12 +5,15 @@ import re
 import requests
 from pyquery import PyQuery as pquery
 
-from sureplite.sutools import comp_http_url
+from sureplite.sutools import comp_http_url, get_today
 
 
 def init_reptile(tar_url, encoding='utf-8'):
     """ 初始化爬虫 """
-    web_res_context = requests.get(tar_url)
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36'
+    }
+    web_res_context = requests.get(tar_url, headers=headers)
     web_res_context.encoding = encoding
     document = pquery(web_res_context.text)
     # 添加属性
@@ -81,10 +84,11 @@ def get_context_website(reptile, configs):
             if k == 'time':
                 time_res = re.findall(
                     r"\d{4}[-/年]{,1}\d{1,2}[-/月]{,1}\d{1,2}[日号]{,1}",
-                    tmp_context)
+                    tmp_context.replace("\n", ""))
                 if len(time_res) <= 0:
                     # 如果获取不到时间，则为爬取时间为准，误差不会超过一天
-                    tmp_context = "时间未取到"
+                    print("此新闻无法取到时间，将使用今天")
+                    tmp_context = get_today()
                 else:
                     std_time = time_res[0].replace(
                         "年", "-").replace("月", "-").replace("日", "").replace("号", "").replace("/", "-")

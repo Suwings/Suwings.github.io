@@ -22,3 +22,8 @@ def comp_today(tar_time):
     """ 判断目标时间是否大于等于今天 """
     return datetime.datetime.strptime(tar_time, "%Y-%m-%d") >= datetime.datetime.strptime(
         time.strftime('%Y-%m-%d', time.localtime(time.time())), "%Y-%m-%d")
+
+
+def get_today():
+    return datetime.datetime.strptime(
+        time.strftime('%Y-%m-%d', time.localtime(time.time())), "%Y-%m-%d")
