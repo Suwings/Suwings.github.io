@@ -63,6 +63,9 @@ def get_context_website(reptile, configs):
     """
     document = reptile['document']
     result = {}
+    # 删除掉不需要的元素
+    document.find('script').remove()
+    document.find('style').remove()
     for k, v in configs.items():
         # 特殊标识
         if k[:4] == 'ext|':
@@ -80,30 +83,44 @@ def get_context_website(reptile, configs):
             tmp_context = ""
             for je in jq_elems:
                 tmp_context += je.text()
-            # 特殊字段：time
-            if k == 'time':
-                time_res = re.findall(
-                    r"\d{4}[-/年]{,1}\d{1,2}[-/月]{,1}\d{1,2}[日号]{,1}",
-                    tmp_context.replace("\n", ""))
-                if len(time_res) <= 0:
-                    # 如果获取不到时间，则为爬取时间为准，误差不会超过一天
-                    print("此新闻无法取到时间，将使用今天")
-                    tmp_context = get_today()
-                else:
-                    std_time = time_res[0].replace(
-                        "年", "-").replace("月", "-").replace("日", "").replace("号", "").replace("/", "-")
-                    tmp_context = std_time
-            # 特殊: title
-            if k == 'title':
-                tmp_context = tmp_context.strip()
-                tmp_context = tmp_context.replace("\n", "")
+            # 特殊字段处理
+            tmp_context = context_special_field(k, tmp_context)
             # 存入字段
             result[k] = tmp_context
     # 对此单篇内容的全局属性
     result["url"] = reptile['tar_url']
-    if not ('title' in result.keys()) or result['title'] == "":
-        print("爬虫的某个文章请求中，结果集中没有 title 元素，一般都是选择器设置错误。\nURL:" + result["url"] +
-              "\nResult:" + str(result)
-              )
+    if not context_must_key(result, "title"):
+        print("请求缺失 title 属性:\n" + str(result))
+        return None
+    if not context_must_key(result, "context"):
+        print("请求缺失 context 属性:\n" + str(result))
         return None
     return result
+
+
+def context_special_field(k, tmp_context):
+    """用于处理爬虫中的特殊字段"""
+    # 特殊字段：time
+    if k == 'time':
+        time_res = re.findall(
+            r"\d{4}[-/年]{,1}\d{1,2}[-/月]{,1}\d{1,2}[日号]{,1}",
+            tmp_context.replace("\n", ""))
+        if len(time_res) <= 0:
+            # 如果获取不到时间，则为爬取时间为准，误差不会超过一天
+            print("此新闻无法取到时间，将使用今天")
+            tmp_context = get_today()
+        else:
+            std_time = time_res[0].replace(
+                "年", "-").replace("月", "-").replace("日", "").replace("号", "").replace("/", "-")
+            tmp_context = std_time
+    # 特殊: title
+    if k == 'title':
+        tmp_context = tmp_context.strip()
+        tmp_context = tmp_context.replace("\n", "")
+    return str(tmp_context)
+
+
+def context_must_key(result, k):
+    if k in result.keys() and result[k] != "":
+        return True
+    return False
