@@ -36,6 +36,7 @@ def get_context_website(reptile, configs, other=None):
     result['title'] = ''
     result['time'] = str(get_today())
     result['context'] = ''
+    tmp_context = ''
     # 删除掉不需要的元素
     document.find('script').remove()
     document.find('style').remove()
@@ -44,16 +45,17 @@ def get_context_website(reptile, configs, other=None):
         if k[:4] == 'ext|':
             result[k[4:]] = v
             continue
-        # 多重选择器
+        # 多重选择器 每个选择器均进行一次元素查找
         arr_v = v.split('||')
         for everyelem in arr_v:
             if everyelem == "":
                 continue
+            # 利用此选择器查找
             jq_elem = document.find(everyelem)
             if jq_elem.length <= 0:
                 continue
+            # 如有此元素，则累加其元素下所有文本
             jq_elems = jq_elem.items()
-            tmp_context = ""
             for je in jq_elems:
                 tmp_context += je.text()
             # 特殊字段处理
@@ -62,9 +64,10 @@ def get_context_website(reptile, configs, other=None):
             result[k] = tmp_context
     # 对此单篇内容的全局属性
     result["url"] = reptile['tar_url']
-    #处理完所有数据之后，进行特殊值附加
+    # 处理完所有数据之后，进行特殊值附加
     for other_k, other_v in other.items():
         result[other_k] = other_v
+    # 不合格数据初步检查
     if not context_must_key(result, "title"):
         print("请求缺失 title 属性:\n" + str(result))
         return None
