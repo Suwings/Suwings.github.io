@@ -54,19 +54,32 @@ def reptile_resurgence_links(
         return res_links
     rep = init_reptile(tar_url)
     document = rep['document']
-    # 专注于某一区域对网页爬虫 推荐这种方法只爬一层
-    container_tags = document.find(max_container).items()
-    for tag1 in container_tags:
-        children_tags = tag1.children(a_elem).items()
-        for tag2 in children_tags:
-            # 可以在这里增加 callback 有效减少请求次数
+    if max_container != '':
+        # 专注于某一区域对网页爬虫 推荐这种方法只爬一层
+        container_tags = document.find(max_container).items()
+        for tag1 in container_tags:
+            children_tags = tag1.children(a_elem).items()
+            for tag2 in children_tags:
+                # 可以在这里增加 callback 有效减少请求次数
+                if callback is not None:
+                    callback(comp_http_url(tar_url, tag2.attr('href')))
+                reptile_resurgence_links(
+                    tar_url, max_layer - 1,
+                    max_container=max_container,
+                    res_links=res_links,
+                    next_url=comp_http_url(tar_url, tag2.attr('href'))
+                )
+    else:
+        # 针对全部 a 标题
+        a_tags = document.find(a_elem).items()
+        for tag1 in a_tags:
             if callback is not None:
-                callback(comp_http_url(tar_url, tag2.attr('href')))
+                callback(comp_http_url(tar_url, tag1.attr('href')))
             reptile_resurgence_links(
                 tar_url, max_layer - 1,
-                max_container=max_container,
+                max_container="",
                 res_links=res_links,
-                next_url=comp_http_url(tar_url, tag2.attr('href'))
+                next_url=comp_http_url(tar_url, tag1.attr('href'))
             )
     # 爬取之后将会获得每一个链接
     return res_links

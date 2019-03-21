@@ -45,7 +45,7 @@ def replite_data_insert(replite_results):
     global db_connect
     global db_cursor
     for rep_v in replite_results:
-        print("数据库存储:" + rep_v['title'])
+        print("[数据库][储存] " + rep_v['title'])
         sql = "INSERT INTO `news_a1` (`id`, `title`, `domain`, `url`, `time`, `replite_time`, `first_class`, `second_class`, `context`) VALUES (NULL, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');" % (
             rep_v['title'],
             rep_v['domain'],

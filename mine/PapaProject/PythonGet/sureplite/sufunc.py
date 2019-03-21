@@ -6,6 +6,13 @@ import requests
 from pyquery import PyQuery as pquery
 
 from sureplite.sutools import get_today
+from sureplite.pxfilter import XssHtml
+
+HTML_purifier = XssHtml(['a', 'img', 'br', 'strong', 'b', 'code', 'pre',
+                         'p', 'em', 'h1', 'h2', 'h3', 'h4',
+                         'h5', 'h6', 'ul', 'ol', 'tr', 'th', 'td',
+                         'li', 'u', 'embed', 's', 'table', 'thead', 'tbody',
+                         'caption', 'small', 'q', 'sup', 'sub'])
 
 
 def init_reptile(tar_url, encoding='utf-8'):
@@ -36,32 +43,12 @@ def get_context_website(reptile, configs, other=None):
     result['title'] = ''
     result['time'] = str(get_today())
     result['context'] = ''
-    tmp_context = ''
+    # tmp_context = ''
     # 删除掉不需要的元素
     document.find('script').remove()
     document.find('style').remove()
-    for k, v in configs.items():
-        # 特殊标识
-        if k[:4] == 'ext|':
-            result[k[4:]] = v
-            continue
-        # 多重选择器 每个选择器均进行一次元素查找
-        arr_v = v.split('||')
-        for everyelem in arr_v:
-            if everyelem == "":
-                continue
-            # 利用此选择器查找
-            jq_elem = document.find(everyelem)
-            if jq_elem.length <= 0:
-                continue
-            # 如有此元素，则累加其元素下所有文本
-            jq_elems = jq_elem.items()
-            for je in jq_elems:
-                tmp_context += je.text()
-            # 特殊字段处理
-            tmp_context = context_special_field(k, tmp_context)
-            # 存入字段
-            result[k] = tmp_context
+    # 寻找元素算法
+    context_find(document, configs, result)
     # 对此单篇内容的全局属性
     result["url"] = reptile['tar_url']
     # 处理完所有数据之后，进行特殊值附加
@@ -77,6 +64,34 @@ def get_context_website(reptile, configs, other=None):
     return result
 
 
+def context_find(document, configs, result):
+    """ 内容元素搜寻算法 """
+    tmp_context = ""
+    for k, v in configs.items():
+        # 特殊标识
+        if k[:4] == 'ext|':
+            result[k[4:]] = v
+            continue
+        # 多重选择器 每个选择器均进行一次元素查找
+        arr_v = v.split('||')
+        for everyelem in arr_v:
+            if everyelem == "":
+                continue
+            # 利用此选择器查找
+            jq_elem = document.find(everyelem)
+            if jq_elem.length <= 0:
+                continue
+            # 如有此元素，则累加其元素下所有纯文本
+            jq_elems = jq_elem.items()
+            for je in jq_elems:
+                tmp_context += je.text()
+        # 特殊字段处理
+        tmp_context = context_special_field(k, tmp_context)
+        # 存入字段
+        result[k] = tmp_context
+    return tmp_context
+
+
 def context_special_field(k, tmp_context):
     """用于处理爬虫中的特殊字段"""
     # 特殊字段：time
@@ -85,8 +100,8 @@ def context_special_field(k, tmp_context):
             r"\d{4}[-/年]{,1}\d{1,2}[-/月]{,1}\d{1,2}[日号]{,1}",
             tmp_context.replace("\n", ""))
         if len(time_res) <= 0:
-            # 如果获取不到时间，则为爬取时间为准，误差不会超过一天
-            print("此新闻无法取到时间，将使用今天")
+                # 如果获取不到时间，则为爬取时间为准，误差不会超过一天
+            print("[异常] 日期获取异常，将默认:", str(get_today()))
             tmp_context = str(get_today())
         else:
             std_time = time_res[0].replace(

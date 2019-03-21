@@ -17,18 +17,78 @@ reptile_select_context(
     ["我自己的"]
 )
 
-# reptile_select_context(
-#     'http://www.miit.gov.cn/n1146295/n1652858/index.html',
-#     ".clist_con",
-#     "ul>li>a",
-#     {
-#         "title": ".ctitle>h1||#con_title",
-#         "time": ".short_r||#con_time",
-#         "context": ".ccontent"
-#     },
-#     ["工信部", "政策文件"]
-# )
+reptile_select_context(
+    'http://www.miit.gov.cn/n1146295/n1652858/index.html',
+    ".clist_con",
+    "ul>li>a",
+    {
+        "title": ".ctitle>h1||#con_title",
+        "time": ".short_r||#con_time",
+        "context": ".ccontent"
+    },
+    ["工信部", "政策文件"]
+)
 
+reptile_select_context(
+    'http://www.miit.gov.cn/n1146295/n1652858/n1653100/index.html',
+    ".clist_con",
+    "ul>li>a",
+    {
+        "title": ".ctitle>h1||#con_title",
+        "time": ".short_r||#con_time",
+        "context": ".ccontent"
+    },
+    ["工信部", "文件公示"]
+)
+
+reptile_select_context(
+    'http://www.miit.gov.cn/n1146295/n1652858/n1653100/index.html',
+    ".clist_con",
+    "ul>li>a",
+    {
+        "title": ".ctitle>h1||#con_title",
+        "time": ".short_r||#con_time",
+        "context": ".ccontent"
+    },
+    ["工信部", "规划投资"]
+)
+
+
+reptile_select_context(
+    'http://www.mot.gov.cn/xinwen/',
+    "",
+    ".list-group a",
+    {
+        "title": ".container h1",
+        "time": ".container h3>font",
+        "context": "#Zoom"
+    },
+    ["交运部", "新闻"]
+)
+
+reptile_select_context(
+    'http://www.moe.gov.cn/jyb_xwfb/',
+    "",
+    "ul>li a",
+    {
+        "title": "#content_body>h1",
+        "time": "#content_date_source",
+        "context": ".TRS_Editor"
+    },
+    ["教育部", "新闻"]
+)
+
+reptile_select_context(
+    'http://www.mofcom.gov.cn/article/ztxx/',
+    "",
+    ".u-newsList01 a",
+    {
+        "title": "#artitle",
+        "time": "#arsource",
+        "context": "#zoom"
+    },
+    ["商务部", "预警|提醒"]
+)
 
 reptile_select_context(
     'http://www.gov.cn/zhengce/zuixin.htm',
@@ -74,7 +134,7 @@ reptile_select_context(
         "time": "#arsource",
         "context": "#zoom"
     },
-    ["商务部", "政策|贸易"]
+    ["商务部", "政策"]
 )
 
 

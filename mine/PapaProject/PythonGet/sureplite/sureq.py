@@ -11,7 +11,7 @@ FILTER_Before_today = False
 
 
 def reptile_select_context(
-    news_list_url, list_elem, list_a_elem, context_config, class_list=[], is_list=False):
+        news_list_url, list_elem, list_a_elem, context_config, class_list=[], is_list=False):
     """通过新闻列表页面与选择新闻显示页面的元素，来自动化爬取第一页未分类的所有新闻"""
     print("开始收集新闻列表资料:"+news_list_url)
     global FILTER_Before_today
@@ -40,32 +40,37 @@ def reptile_select_context(
     if len(class_list) >= 3:
         context_config['ext|third_class'] = class_list[2]
     # 将新闻列表的每一个 URL 全部爬取一次并且筛选出正确文章
-    replite_results = []
+    # replite_results = []
     print("开始爬取:"+news_list_url)
     for link_obj in result_links:
-        link = link_obj['href']
-        # 初始化爬虫
-        reptile_ready = init_reptile(link)
-        operate_replite_data(reptile_ready, context_config)
-        print("正在请求:" + link)
-        res = get_context_website(reptile_ready, context_config, other=link_obj)
-        if res is None:
+        try:
+            link = link_obj['href']
+            # 初始化爬虫
+            reptile_ready = init_reptile(link)
+            operate_replite_data(reptile_ready, context_config)
+            print("[正在请求]:" + link)
+            res = get_context_website(
+                reptile_ready, context_config, other=link_obj)
+            if res is None:
+                continue
+            # 将新闻的日期与今天比较，如果等于或大于今天，则无需判断新闻重复
+            news_time = res['time']
+            if FILTER_Before_today and not comp_today(news_time):
+                # 忽略掉小于今天的新闻
+                print('[过期]', res['time'] + " | 过期")
+                continue
+            # 如果是今天新闻，那么比较新闻标题来判断重复
+            has_result = replite_database.replite_has_data(res)
+            if has_result:
+                print("[重复] 重复数据 | 跳过")
+                continue
+            # 传递到数据库层
+            replite_database.replite_data_insert([res])
+            # 将新闻加入结果集合
+        except Exception as err:
+            print("[错误]:", str(err))
             continue
-        # 将新闻的日期与今天比较，如果等于或大于今天，则无需判断新闻重复
-        news_time = res['time']
-        if FILTER_Before_today and not comp_today(news_time):
-            # 忽略掉小于今天的新闻
-            print(res['time'] + " | 过期")
-            continue
-        # 如果是今天新闻，那么比较新闻标题来判断重复
-        has_result = replite_database.replite_has_data(res)
-        if has_result:
-            print("新闻重复 | 跳过")
-            continue
-        # 将新闻加入结果集合
-        replite_results.append(res)
-    # 传递到数据库层
-    replite_database.replite_data_insert(replite_results)
+    print("网站:", news_list_url, "爬取完毕")
 
 
 def reptile_select_list(news_list_url, mainElem, linkElem, TimeElem, titleElem, context_config, class_list=[]):
@@ -77,3 +82,7 @@ def reptile_select_list(news_list_url, mainElem, linkElem, TimeElem, titleElem, 
     args.append(titleElem)
     reptile_select_context(news_list_url, args, None,
                            context_config, class_list, True)
+
+
+# def replite_select_all(news_list_url, list_elem, list_a_elem, context_config, class_list=[]):
+#     reptile_select_context(news_list_url, list_elem,list_a_elem)
