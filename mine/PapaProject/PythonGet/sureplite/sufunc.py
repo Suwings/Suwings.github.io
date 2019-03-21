@@ -23,7 +23,7 @@ def init_reptile(tar_url, encoding='utf-8'):
     return reptile
 
 
-def get_context_website(reptile, configs):
+def get_context_website(reptile, configs, other=None):
     """
     只要页面匹配，即可抓取，用于文章匹配，单篇
     Use: get_context_website({
@@ -62,6 +62,9 @@ def get_context_website(reptile, configs):
             result[k] = tmp_context
     # 对此单篇内容的全局属性
     result["url"] = reptile['tar_url']
+    #处理完所有数据之后，进行特殊值附加
+    for other_k, other_v in other.items():
+        result[other_k] = other_v
     if not context_must_key(result, "title"):
         print("请求缺失 title 属性:\n" + str(result))
         return None

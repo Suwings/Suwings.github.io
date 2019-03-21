@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from database import replite_database
-from sureplite.sureq import reptile_select_context
+from sureplite.sureq import reptile_select_context, reptile_select_list
 
 replite_database.init_database()
 
@@ -78,10 +78,12 @@ replite_database.init_database()
 # )
 
 
-reptile_select_context(
+reptile_select_list(
     'http://www.ndrc.gov.cn/zcfb/zcfbgg/',
-    ".box1",
-    "ul>li>a",
+    'li.li',
+    'a',
+    '.date',
+    None,
     {
         "title": "p>strong>font",
         "time": "",

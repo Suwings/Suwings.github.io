@@ -10,7 +10,8 @@ from sureplite.repfromlist import reptile_resurgence_links, reptile_resurgence_l
 FILTER_Before_today = False
 
 
-def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config, class_list=[], is_list=False):
+def reptile_select_context(
+    news_list_url, list_elem, list_a_elem, context_config, class_list=[], is_list=False):
     """通过新闻列表页面与选择新闻显示页面的元素，来自动化爬取第一页未分类的所有新闻"""
     print("开始收集新闻列表资料:"+news_list_url)
     global FILTER_Before_today
@@ -42,12 +43,12 @@ def reptile_select_context(news_list_url, list_elem, list_a_elem, context_config
     replite_results = []
     print("开始爬取:"+news_list_url)
     for link_obj in result_links:
-        link = link_obj['url']
+        link = link_obj['href']
         # 初始化爬虫
         reptile_ready = init_reptile(link)
         operate_replite_data(reptile_ready, context_config)
         print("正在请求:" + link)
-        res = get_context_website(reptile_ready, context_config)
+        res = get_context_website(reptile_ready, context_config, other=link_obj)
         if res is None:
             continue
         # 将新闻的日期与今天比较，如果等于或大于今天，则无需判断新闻重复

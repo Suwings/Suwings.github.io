@@ -28,13 +28,13 @@ def reptile_resurgence_list(reptile, mainElem, linkElem, TimeElem, titleElem=Non
             tmps['href'] = tar_url_obj.scheme + "://" + tar_url_obj.netloc + os.path.normpath(os.path.join(
                 os.path.dirname(tar_url_obj.path), href_url)).replace("\\", "/")
         # 文本时间
-        tmps['time'] = v.children(TimeElem).text()
+        # tmps['time'] = v.children(TimeElem).text()
         # 原始URL
-        tmps['original_url'] = tar_url
+        # tmps['original_url'] = tar_url
         # 数据库中的 URL 是解析完成的 URL
-        tmps['url'] = os.path.normpath(tar_url_obj.path)
+        # tmps['url'] = os.path.normpath(tar_url_obj.path)
         # 主机名
-        tmps['netloc'] = tar_url_obj.netloc
+        # tmps['netloc'] = tar_url_obj.netloc
         results.append(tmps)
     return results
 
@@ -48,7 +48,7 @@ def reptile_resurgence_links(
     """
     if next_url != "" and next_url[:4] in 'http':
         result = {}
-        result['url'] = next_url
+        result['href'] = next_url
         res_links.append(result)
     if max_layer <= 0:
         return res_links
