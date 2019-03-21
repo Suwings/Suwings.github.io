@@ -81,10 +81,10 @@ replite_database.init_database()
 reptile_select_context(
     'http://www.ndrc.gov.cn/zcfb/zcfbgg/',
     ".box1",
-    "a",
+    "ul>li>a",
     {
-        "title": "#artitle",
-        "time": "#arsource",
+        "title": "p>strong>font",
+        "time": "",
         "context": "#zoom"
     },
     ["发改委", "公告"]

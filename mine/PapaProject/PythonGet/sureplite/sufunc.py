@@ -5,7 +5,7 @@ import re
 import requests
 from pyquery import PyQuery as pquery
 
-from sureplite.sutools import comp_http_url, get_today
+from sureplite.sutools import get_today
 
 
 def init_reptile(tar_url, encoding='utf-8'):
@@ -23,37 +23,6 @@ def init_reptile(tar_url, encoding='utf-8'):
     return reptile
 
 
-def reptile_resurgence_links(
-        tar_url, max_layer, max_container="", a_elem="a", res_links=[],
-        next_url="", callback=None):
-    """
-    爬虫层次挖掘，对目标 URL 进行多层挖链接
-    参数：目标 URL | 最大层数 | 爬取范围 | 爬取的a标签选择器 | 内部使用，返回列表 | 内部使用 下一个目标
-    """
-    if next_url != "" and next_url[:4] in 'http':
-        res_links.append(next_url)
-    if max_layer <= 0:
-        return res_links
-    rep = init_reptile(tar_url)
-    document = rep['document']
-    # 专注于某一区域对网页爬虫 推荐这种方法只爬一层
-    container_tags = document.find(max_container).items()
-    for tag1 in container_tags:
-        children_tags = tag1.children(a_elem).items()
-        for tag2 in children_tags:
-            # 可以在这里增加 callback 有效减少请求次数
-            if callback is not None:
-                callback(comp_http_url(tar_url, tag2.attr('href')))
-            reptile_resurgence_links(
-                tar_url, max_layer - 1,
-                max_container=max_container,
-                res_links=res_links,
-                next_url=comp_http_url(tar_url, tag2.attr('href'))
-            )
-    # 爬取之后将会获得每一个链接
-    return res_links
-
-
 def get_context_website(reptile, configs):
     """
     只要页面匹配，即可抓取，用于文章匹配，单篇
@@ -63,6 +32,10 @@ def get_context_website(reptile, configs):
     """
     document = reptile['document']
     result = {}
+    # 默认值
+    result['title'] = ''
+    result['time'] = str(get_today())
+    result['context'] = ''
     # 删除掉不需要的元素
     document.find('script').remove()
     document.find('style').remove()
@@ -108,7 +81,7 @@ def context_special_field(k, tmp_context):
         if len(time_res) <= 0:
             # 如果获取不到时间，则为爬取时间为准，误差不会超过一天
             print("此新闻无法取到时间，将使用今天")
-            tmp_context = get_today()
+            tmp_context = str(get_today())
         else:
             std_time = time_res[0].replace(
                 "年", "-").replace("月", "-").replace("日", "").replace("号", "").replace("/", "-")
