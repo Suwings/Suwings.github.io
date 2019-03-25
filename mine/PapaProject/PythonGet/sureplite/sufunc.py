@@ -1,19 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import re
+import uuid
+from urllib.parse import urlparse
 
 import requests
 from pyquery import PyQuery as pquery
 
-from sureplite.sutools import get_today
+from sureplite.download import download_img
 # from sureplite.pxfilter import XssHtml
-from sureplite.sutools import comp_http_url
-
-html_allow_tags = ['a', 'img', 'br', 'strong', 'b', 'code', 'pre',
-                   'p', 'em', 'h1', 'h2', 'h3', 'h4',
-                   'h5', 'h6', 'ul', 'ol',
-                   'li', 'u', 'embed', 's',
-                   'caption', 'small', 'q', 'sup', 'sub']
+from sureplite.sutools import comp_http_url, get_today
 
 
 def init_reptile(tar_url, encoding='utf-8'):
@@ -28,6 +24,7 @@ def init_reptile(tar_url, encoding='utf-8'):
     reptile = {}
     reptile['tar_url'] = tar_url
     reptile['document'] = document
+    reptile['netloc'] = urlparse(tar_url).netloc
     return reptile
 
 
@@ -106,14 +103,25 @@ def context_html(reptile, k, jq_elem):
         for je in jq_elems:
             tagName = je[0].tag
             if tagName == 'img':
-                tmp_context += '<img src="%s" />' % comp_http_url(
-                    reptile['tar_url'],
-                    je.attr('src'))
+                try:
+                    img_url = comp_http_url(reptile['tar_url'], je.attr('src'))
+                    img_file_name = str(uuid.uuid1())
+                    img_file_path = download_img(
+                        img_url, reptile['netloc'], img_file_name)
+                    tmp_context += '<img src="%s" />' % img_file_path
+                except Exception as err:
+                    raise err
                 continue
             if tagName == 'b' or tagName == 'strong':
-                tmp_context += '<b>%s</b>' % je.text()
-            if tagName == 'li':
-                tmp_context += '<li>%s</li>' % je.text()
+                tmp_context += '<b>%s</b>' % je.text()  # 容易重复.... <p><b>将会重复</b></p>
+                continue
+            if tagName == 'p':
+                if je.text() != '':
+                    tmp_context += '<p>%s</p>' % je.text()
+                continue
+            if tagName == 'br':
+                tmp_context += '<br>'
+                continue
             tmp_context += je.text()
         return tmp_context
     jq_elems = jq_elem.items()
