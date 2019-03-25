@@ -8,11 +8,11 @@ from pyquery import PyQuery as pquery
 from sureplite.sutools import get_today
 from sureplite.pxfilter import XssHtml
 
-HTML_purifier = XssHtml(['a', 'img', 'br', 'strong', 'b', 'code', 'pre',
-                         'p', 'em', 'h1', 'h2', 'h3', 'h4',
-                         'h5', 'h6', 'ul', 'ol', 'tr', 'th', 'td',
-                         'li', 'u', 'embed', 's', 'table', 'thead', 'tbody',
-                         'caption', 'small', 'q', 'sup', 'sub'])
+html_allow_tags = ['a', 'img', 'br', 'strong', 'b', 'code', 'pre',
+                   'p', 'em', 'h1', 'h2', 'h3', 'h4',
+                   'h5', 'h6', 'ul', 'ol',
+                   'li', 'u', 'embed', 's',
+                   'caption', 'small', 'q', 'sup', 'sub']
 
 
 def init_reptile(tar_url, encoding='utf-8'):
@@ -66,7 +66,6 @@ def get_context_website(reptile, configs, other=None):
 
 def context_find(document, configs, result):
     """ 内容元素搜寻算法 """
-    tmp_context = ""
     for k, v in configs.items():
         # 特殊标识
         if k[:4] == 'ext|':
@@ -74,6 +73,7 @@ def context_find(document, configs, result):
             continue
         # 多重选择器 每个选择器均进行一次元素查找
         arr_v = v.split('||')
+        tmp_context = ""
         for everyelem in arr_v:
             if everyelem == "":
                 continue
@@ -82,13 +82,33 @@ def context_find(document, configs, result):
             if jq_elem.length <= 0:
                 continue
             # 如有此元素，则累加其元素下所有纯文本
-            jq_elems = jq_elem.items()
-            for je in jq_elems:
-                tmp_context += je.text()
+            # jq_elems = jq_elem.items()
+            # for je in jq_elems:
+            #     tmp_context += je.text()  # 这里如果能修改成获取html代码就很好，推荐写个函数封装
+            tmp_context = context_html(k, jq_elem)
         # 特殊字段处理
         tmp_context = context_special_field(k, tmp_context)
         # 存入字段
         result[k] = tmp_context
+    return result
+
+
+def context_html(k, jq_elem):
+    """ 获取特殊元素下所有子元素的 html 代码并且过滤 """
+    global html_allow_tags
+    tmp_context = ""
+    if(k == 'context'):
+        HTML_purifier = XssHtml(html_allow_tags)
+        jq_elems = jq_elem.items()
+        for je in jq_elems:
+            tmp_context += je.html()
+        HTML_purifier.feed(tmp_context)
+        HTML_purifier.close()
+        safe_html_context = HTML_purifier.getHtml()
+        return safe_html_context
+    jq_elems = jq_elem.items()
+    for je in jq_elems:
+        tmp_context += je.text()
     return tmp_context
 
 

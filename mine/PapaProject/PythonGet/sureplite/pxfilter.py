@@ -41,8 +41,8 @@ class XssHtml(HTMLParser):
     tags_own_attrs = {
         "img": ["src", "width", "height", "alt", "align"],
         "a": ["href", "target", "rel", "title"],
-        "embed": ["src", "width", "height", "type", "allowfullscreen", "loop", "play", "wmode", "menu"],
-        "table": ["border", "cellpadding", "cellspacing"],
+        # "embed": ["src", "width", "height", "type", "allowfullscreen", "loop", "play", "wmode", "menu"],
+        # "table": ["border", "cellpadding", "cellspacing"],
     }
 
     _regex_url = re.compile(r'^(http|https|ftp)://.*', re.I | re.S)

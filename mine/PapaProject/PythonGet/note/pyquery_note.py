@@ -1,4 +1,21 @@
-
+def context_html(k, jq_elem):
+    """ 获取特殊元素下所有子元素的 html 代码并且过滤 """
+    global html_allow_tags
+    tmp_context = ""
+    if(k == 'context'):
+        HTML_purifier = XssHtml(html_allow_tags)
+        jq_elems = jq_elem.items()
+        for je in jq_elems:
+            tmp_context += je.html()
+        HTML_purifier.feed(tmp_context)
+        HTML_purifier.close()
+        safe_html_context = HTML_purifier.getHtml()
+        return safe_html_context
+    jq_elems = jq_elem.items()
+    for je in jq_elems:
+        tmp_context += je.text()
+    return tmp_context
+    
 def get_one_webstie(reptile, mainElem, linkElem, TimeElem, titleElem=None):
     """仅仅用于抓取新闻标题"""
     document = reptile['document']
