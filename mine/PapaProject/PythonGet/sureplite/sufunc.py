@@ -21,7 +21,7 @@ def init_reptile(tar_url, encoding='utf-8'):
     headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36'
     }
-    web_res_context = requests.get(tar_url, headers=headers)
+    web_res_context = requests.get(tar_url, headers=headers, timeout=5)
     web_res_context.encoding = encoding
     document = pquery(web_res_context.text)
     # 添加属性

@@ -5,17 +5,17 @@ from sureplite.sureq import reptile_select_context, reptile_select_list
 
 replite_database.init_database()
 
-# reptile_select_context(
-#     'http://localhost/get.html',
-#     ".list",
-#     "ul>li>a",
-#     {
-#         "title": ".center>h4",
-#         "time": ".time",
-#         "context": ".context"
-#     },
-#     ["我自己的"]
-# )
+reptile_select_context(
+    'http://localhost/get.html',
+    ".list",
+    "ul>li>a",
+    {
+        "title": ".center>h4",
+        "time": ".time",
+        "context": ".context"
+    },
+    ["我自己的"]
+)
 
 # reptile_select_context(
 #     'http://www.miit.gov.cn/n1146295/n1652858/index.html',
@@ -138,29 +138,29 @@ replite_database.init_database()
 # )
 
 
-# reptile_select_list(
-#     'http://www.ndrc.gov.cn/zcfb/zcfbgg/',
-#     'li.li',
-#     'a',
-#     '.date',
-#     None,
-#     {
-#         "title": "p>strong>font",
-#         "time": "",
-#         "context": "#zoom"
-#     },
-#     ["发改委", "公告"]
-# )
-
-
-reptile_select_context(
-    'https://www.fmprc.gov.cn/web/zyxw/',
-    "",
-    ".imbox_ul a",
+reptile_select_list(
+    'http://www.ndrc.gov.cn/zcfb/zcfbgg/',
+    'li.li',
+    'a',
+    '.date',
+    None,
     {
-        "title": ".title",
-        "time": "#News_Body_Time",
-        "context": "#News_Body_Txt_A"
+        "title": "p>strong>font",
+        "time": "",
+        "context": "#zoom"
     },
-    ["外交部", "新闻"]
+    ["发改委", "公告"]
 )
+
+
+# reptile_select_context(
+#     'https://www.fmprc.gov.cn/web/zyxw/',
+#     "",
+#     ".imbox_ul a",
+#     {
+#         "title": ".title",
+#         "time": "#News_Body_Time",
+#         "context": "#News_Body_Txt_A"
+#     },
+#     ["外交部", "新闻"]
+# )

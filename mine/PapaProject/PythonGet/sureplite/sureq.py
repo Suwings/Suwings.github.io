@@ -69,7 +69,7 @@ def reptile_select_context(
             # 将新闻加入结果集合
         except Exception as err:
             print("[错误]:", str(err))
-            raise err
+            # raise err
             continue
     print("网站:", news_list_url, "爬取完毕")
 
