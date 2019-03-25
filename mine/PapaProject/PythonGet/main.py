@@ -61,22 +61,22 @@ replite_database.init_database()
 #     {
 #         "title": ".container h1",
 #         "time": ".container h3>font",
-#         "context": "#Zoom"
+#         "context": "#Zoom *"
 #     },
 #     ["交运部", "新闻"]
 # )
 
-reptile_select_context(
-    'http://www.moe.gov.cn/jyb_xwfb/',
-    "",
-    "ul>li a",
-    {
-        "title": "#content_body>h1",
-        "time": "#content_date_source",
-        "context": ".TRS_Editor"
-    },
-    ["教育部", "新闻"]
-)
+# reptile_select_context(
+#     'http://www.moe.gov.cn/jyb_xwfb/',
+#     "",
+#     "ul>li a",
+#     {
+#         "title": "#content_body>h1",
+#         "time": "#content_date_source",
+#         "context": ".TRS_Editor"
+#     },
+#     ["教育部", "新闻"]
+# )
 
 # reptile_select_context(
 #     'http://www.mofcom.gov.cn/article/ztxx/',
@@ -151,3 +151,16 @@ reptile_select_context(
 #     },
 #     ["发改委", "公告"]
 # )
+
+
+reptile_select_context(
+    'https://www.fmprc.gov.cn/web/zyxw/',
+    "",
+    ".imbox_ul a",
+    {
+        "title": ".title",
+        "time": "#News_Body_Time",
+        "context": "#News_Body_Txt_A"
+    },
+    ["外交部", "新闻"]
+)

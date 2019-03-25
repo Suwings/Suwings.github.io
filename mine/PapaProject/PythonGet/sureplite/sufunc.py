@@ -98,14 +98,18 @@ def context_html(k, jq_elem):
     global html_allow_tags
     tmp_context = ""
     if(k == 'context'):
-        HTML_purifier = XssHtml(html_allow_tags)
         jq_elems = jq_elem.items()
+        # je 是外部大类
         for je in jq_elems:
-            tmp_context += je.html()
-        HTML_purifier.feed(tmp_context)
-        HTML_purifier.close()
-        safe_html_context = HTML_purifier.getHtml()
-        return safe_html_context
+            # 这里是对每一个子类代送一次
+            jq_all_sub_elems = je.find("*").items()
+            for jk in jq_all_sub_elems:
+                tagName = jk[0].tag
+                if tagName == 'img':
+                    tmp_context += '<img src="%s" />' % jk.attr('src')
+                    continue
+                tmp_context += je.text()
+        return tmp_context
     jq_elems = jq_elem.items()
     for je in jq_elems:
         tmp_context += je.text()
