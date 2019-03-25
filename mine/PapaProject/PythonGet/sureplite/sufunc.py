@@ -6,7 +6,8 @@ import requests
 from pyquery import PyQuery as pquery
 
 from sureplite.sutools import get_today
-from sureplite.pxfilter import XssHtml
+# from sureplite.pxfilter import XssHtml
+from sureplite.sutools import comp_http_url
 
 html_allow_tags = ['a', 'img', 'br', 'strong', 'b', 'code', 'pre',
                    'p', 'em', 'h1', 'h2', 'h3', 'h4',
@@ -48,7 +49,7 @@ def get_context_website(reptile, configs, other=None):
     document.find('script').remove()
     document.find('style').remove()
     # 寻找元素算法
-    context_find(document, configs, result)
+    context_find(reptile, configs, result)
     # 对此单篇内容的全局属性
     result["url"] = reptile['tar_url']
     # 处理完所有数据之后，进行特殊值附加
@@ -64,8 +65,9 @@ def get_context_website(reptile, configs, other=None):
     return result
 
 
-def context_find(document, configs, result):
+def context_find(reptile, configs, result):
     """ 内容元素搜寻算法 """
+    document = reptile['document']
     for k, v in configs.items():
         # 特殊标识
         if k[:4] == 'ext|':
@@ -85,7 +87,7 @@ def context_find(document, configs, result):
             # jq_elems = jq_elem.items()
             # for je in jq_elems:
             #     tmp_context += je.text()  # 这里如果能修改成获取html代码就很好，推荐写个函数封装
-            tmp_context = context_html(k, jq_elem)
+            tmp_context = context_html(reptile, k, jq_elem)
         # 特殊字段处理
         tmp_context = context_special_field(k, tmp_context)
         # 存入字段
@@ -93,22 +95,22 @@ def context_find(document, configs, result):
     return result
 
 
-def context_html(k, jq_elem):
+def context_html(reptile, k, jq_elem):
     """ 获取特殊元素下所有子元素的 html 代码并且过滤 """
     global html_allow_tags
+    # document = reptile['document']
     tmp_context = ""
     if(k == 'context'):
-        jq_elems = jq_elem.items()
+        jq_elems = jq_elem.find("*").items()
         # je 是外部大类
         for je in jq_elems:
-            # 这里是对每一个子类代送一次
-            jq_all_sub_elems = je.find("*").items()
-            for jk in jq_all_sub_elems:
-                tagName = jk[0].tag
-                if tagName == 'img':
-                    tmp_context += '<img src="%s" />' % jk.attr('src')
-                    continue
-                tmp_context += je.text()
+            tagName = je[0].tag
+            if tagName == 'img':
+                tmp_context += '<img src="%s" />' % comp_http_url(
+                    reptile['tar_url'],
+                    je.attr('src'))
+                continue
+            tmp_context += je.text()
         return tmp_context
     jq_elems = jq_elem.items()
     for je in jq_elems:
@@ -124,7 +126,7 @@ def context_special_field(k, tmp_context):
             r"\d{4}[-/年]{,1}\d{1,2}[-/月]{,1}\d{1,2}[日号]{,1}",
             tmp_context.replace("\n", ""))
         if len(time_res) <= 0:
-                # 如果获取不到时间，则为爬取时间为准，误差不会超过一天
+            # 如果获取不到时间，则为爬取时间为准，误差不会超过一天
             print("[异常] 日期获取异常，将默认:", str(get_today()))
             tmp_context = str(get_today())
         else:
