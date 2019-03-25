@@ -110,6 +110,10 @@ def context_html(reptile, k, jq_elem):
                     reptile['tar_url'],
                     je.attr('src'))
                 continue
+            if tagName == 'b' or tagName == 'strong':
+                tmp_context += '<b>%s</b>' % je.text()
+            if tagName == 'li':
+                tmp_context += '<li>%s</li>' % je.text()
             tmp_context += je.text()
         return tmp_context
     jq_elems = jq_elem.items()
