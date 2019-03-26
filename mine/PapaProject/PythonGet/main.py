@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from database import replite_database
-from sureplite.sureq import reptile_select_context, reptile_select_list
+from sureplite.sureq import reptile_select_context, reptile_select_list, get_context_website, init_reptile
 
 replite_database.init_database()
 
@@ -152,15 +152,24 @@ replite_database.init_database()
 #     ["发改委", "公告"]
 # )
 
-
-reptile_select_context(
-    'https://www.fmprc.gov.cn/web/zyxw/',
-    "",
-    ".imbox_ul a",
+print(get_context_website(
+    init_reptile('https://www.fmprc.gov.cn/web/zyxw/t1644074.shtml'),
     {
         "title": ".title",
         "time": "#News_Body_Time",
         "context": "#News_Body_Txt_A"
-    },
-    ["外交部", "新闻"]
-)
+    }, {}
+))
+
+
+# reptile_select_context(
+#     'https://www.fmprc.gov.cn/web/zyxw/',
+#     "",
+#     ".imbox_ul a",
+#     {
+#         "title": ".title",
+#         "time": "#News_Body_Time",
+#         "context": "#News_Body_Txt_A"
+#     },
+#     ["外交部", "新闻"]
+# )

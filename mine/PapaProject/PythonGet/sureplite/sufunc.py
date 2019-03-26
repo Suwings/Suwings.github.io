@@ -8,7 +8,7 @@ import requests
 from pyquery import PyQuery as pquery
 
 from sureplite.download import download_img
-# from sureplite.pxfilter import XssHtml
+from sureplite.pxfilter import XssHtml
 from sureplite.sutools import comp_http_url, get_today
 
 
@@ -112,17 +112,19 @@ def context_html(reptile, k, jq_elem):
                 except Exception as err:
                     raise err
                 continue
-            if tagName == 'b' or tagName == 'strong':
-                tmp_context += '<b>%s</b>' % je.text()  # 容易重复.... <p><b>将会重复</b></p>
-                continue
+            # if tagName == 'b' or tagName == 'strong':
+            #     tmp_context += '<b>%s</b>' % je.text()  # 容易重复.... <p><b>将会重复</b></p>
+            #     continue
             if tagName == 'p':
+                je.find('img').remove()
+                # je.find(':nth-child(n)').remove()
                 if je.text() != '':
                     tmp_context += '<p>%s</p>' % je.text()
                 continue
             if tagName == 'br':
                 tmp_context += '<br>'
                 continue
-            tmp_context += je.text()
+            # tmp_context += je.text() #不获取除以上元素之外的元素
         return tmp_context
     jq_elems = jq_elem.items()
     for je in jq_elems:
