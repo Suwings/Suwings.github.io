@@ -8,43 +8,40 @@
     <meta http-equiv="Content-Language" content="zh-CN" />
     <meta name="renderer" content="webkit" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no" />
-
-    <title>简单搜索 | Suwings</title>
-
+    <title>简单搜索</title>
     <link href="./favicon.ico" rel="shortcut icon" />
-
     <script type="text/javascript">
         (function () {
             //Https 跳转
-            var isHttps = true;
+            var isHttps = false;
             if (isHttps && window.location.href.indexOf("http://") != -1) {
                 window.location.href = "https://www.suwings.top";
             }
         })();
     </script>
-
     <link type="text/css" rel="stylesheet" href="static/main.css" />
 </head>
 
 <body>
     <div class="container">
-        <p id="search-title" style="padding-left: 8px;">简单搜索</p>
-        <div class="search-input sbibod">
-            <input id="search-context" oninput="PAGE.input(0);" onkeydown="PAGE.input(-1);" autocomplete="off"
-                placeholder="Hello World | 你好 世界 | Bonjour, le monde | Привет | こんにちは世界 | Ciao, mondo | Hallo, Welt | 안녕 세상 | Saluton mondo.">
-        </div>
-        <div id="search-tip-block" class="search-tip">
-        </div>
-        <div class="search-btn">
-            <button onclick="PAGE.search('baidu');">Baidu 搜索</button>
-            <button onclick="PAGE.search('url','tieba.baidu.com');">Tieba 搜索</button>
-            <button onclick="PAGE.search('google-a');">Google 代理</button>
-            <button onclick="PAGE.search('bing-b');">Bing 国际</button>
-            <button onclick="PAGE.search('google');">Google 搜索</button>
-            <button onclick="PAGE.search('github');">Github 搜索</button>
+        <div class="serch-wapper">
+            <p id="search-title" style="padding-left: 8px;">简单搜索</p>
+            <div class="search-input sbibod">
+                <input id="search-context" oninput="PAGE.input(0);" onkeydown="PAGE.input(-1);" autocomplete="off"
+                    placeholder="你好世界 | Hello World | Привет мир | Bonjour le monde | こんにちは世界 | Ciao mondo | Hallo Welt | 안녕 세상 | Saluton mondo.">
+            </div>
+            <div id="search-tip-block" class="search-tip">
+            </div>
+            <div class="search-btn">
+                <button onclick="PAGE.search('baidu');">百度搜索</button>
+                <button onclick="PAGE.search('tieba','tieba.baidu.com');">贴吧搜索</button>
+                <button onclick="PAGE.search('zhihu');">知乎搜索</button>
+                <button onclick="PAGE.search('bing-b');">Bing 国际</button>
+                <button onclick="PAGE.search('google');">Google 搜索</button>
+                <button onclick="PAGE.search('translate');">Google 翻译</button>
+            </div>
         </div>
     </div>
-
 
     <script type="text/javascript" src="static/app.js"></script>
 </body>
