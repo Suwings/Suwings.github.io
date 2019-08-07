@@ -8,12 +8,12 @@
     <meta http-equiv="Content-Language" content="zh-CN" />
     <meta name="renderer" content="webkit" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no" />
-    <title>简单搜索</title>
+    <title>面位搜索 | 更简单的搜索首页</title>
     <link href="./favicon.ico" rel="shortcut icon" />
     <script type="text/javascript">
         (function () {
             //Https 跳转
-            var isHttps = true;
+            var isHttps = false;
             if (isHttps && window.location.href.indexOf("http://") != -1) {
                 window.location.href = "https://www.suwings.top";
             }
@@ -25,7 +25,7 @@
 <body>
     <div class="container">
         <div class="serch-wapper">
-            <p id="search-title" style="padding-left: 8px;">简单搜索</p>
+            <p id="search-title" style="padding-left: 8px;">面位搜索</p>
             <div class="search-input sbibod">
                 <input id="search-context" oninput="PAGE.input(0);" onkeydown="PAGE.input(-1);" autocomplete="off"
                     placeholder="你好世界 | Hello World | Привет мир | Bonjour le monde | こんにちは世界 | Ciao mondo | Hallo Welt | 안녕 세상 | Saluton mondo.">
@@ -43,6 +43,9 @@
         </div>
     </div>
 
+    <div class="footer">
+        <a href="http://www.beian.miit.gov.cn" target="_black">湘ICP备 17022362 号</a>
+    </div>
     <script type="text/javascript" src="static/app.js"></script>
 </body>
 
