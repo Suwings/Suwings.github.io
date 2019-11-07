@@ -1,52 +1,26 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang=zh-CN>
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="Content-Language" content="zh-CN" />
-    <meta name="renderer" content="webkit" />
-    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no" />
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=Edge,chrome=1">
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <meta http-equiv=Content-Language content=zh-CN>
+    <meta name=renderer content=webkit>
+    <meta name=viewport content="initial-scale=1,maximum-scale=3,minimum-scale=1,user-scalable=no">
     <title>面位搜索 | 更简单的搜索首页</title>
-    <link href="./favicon.ico" rel="shortcut icon" />
-    <script type="text/javascript">
-        (function () {
-            //Https 跳转
-            var isHttps = true;
-            if (isHttps && window.location.href.indexOf("http://") != -1) {
-                window.location.href = "https://www.suwings.top";
-            }
-        })();
-    </script>
-    <link type="text/css" rel="stylesheet" href="static/main.css" />
+    <script src=https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js
+        integrity=sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM
+        crossorigin=anonymous></script>
+    <link href=./favicon.ico rel="shortcut icon">
+    <link href=static/css/app.9dd446b9.css rel=preload as=style>
+    <link href=static/js/app.a489eef3.js rel=preload as=script>
+    <link href=static/js/chunk-vendors.63272f17.js rel=preload as=script>
+    <link href=static/css/app.9dd446b9.css rel=stylesheet>
 </head>
 
-<body>
-    <div class="container">
-        <div class="serch-wapper">
-            <p id="search-title" style="padding-left: 8px;">面位搜索</p>
-            <div class="search-input sbibod">
-                <input id="search-context" oninput="PAGE.input(0);" onkeydown="PAGE.input(-1);" autocomplete="off"
-                    placeholder="你好世界 | Hello World | Привет мир | Bonjour le monde | こんにちは世界 | Ciao mondo | Hallo Welt | 안녕 세상 | Saluton mondo.">
-            </div>
-            <div id="search-tip-block" class="search-tip">
-            </div>
-            <div class="search-btn">
-                <button onclick="PAGE.search('baidu');">百度搜索</button>
-                <button onclick="PAGE.search('tieba','tieba.baidu.com');">贴吧搜索</button>
-                <button onclick="PAGE.search('zhihu');">知乎搜索</button>
-                <button onclick="PAGE.search('bing-b');">Bing 国际</button>
-                <button onclick="PAGE.search('google');">Google 搜索</button>
-                <button onclick="PAGE.search('translate');">Google 翻译</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer">
-        <a href="http://www.beian.miit.gov.cn" target="_black">湘ICP备 17022362 号</a>
-    </div>
-    <script type="text/javascript" src="static/app.js"></script>
-</body>
-
-</html>
+<body><noscript><strong>We're sorry but sideposition_index doesn't work properly without JavaScript enabled. Please
+            enable it to continue.</strong></noscript>
+    <div id=app></div>
+    <script src=static/js/chunk-vendors.63272f17.js> </script> <script src=static/js/app.a489eef3.js> </script> </body>
+        </html>
