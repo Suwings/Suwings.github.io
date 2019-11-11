@@ -102,12 +102,20 @@
             flag = true;
         });
         var index = 0;
+        var plusval = 1;
+        var MAX_LEN = 2;
         setInterval(function () {
             items.removeAttr('style');
             if (!flag) return;
+
             items[index].style.backgroundColor = 'rgb(68, 68, 68)';
-            index++;
-            if (index == 3) index = 0;
+
+            index = index + plusval;
+            if (index == 0) plusval = 1;
+            if (index == MAX_LEN) {
+                index = MAX_LEN;
+                plusval = -1;
+            }
         }, 1000);
     });
 </script>
