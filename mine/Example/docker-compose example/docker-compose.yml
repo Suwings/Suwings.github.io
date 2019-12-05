@@ -1,0 +1,37 @@
+version: '3'
+services:
+
+   db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+       - "/root/Yelin_news_project/db_data:/var/lib/mysql"
+    ports:
+       - "3306:3306"
+       - "33060:33060"
+    environment:
+       MYSQL_ROOT_PASSWORD: 'toortoor'
+       MYSQL_DATABASE: '5uuwinn'
+
+   web:
+    build: ./Explore2.0/ArticleManager
+    volumes:
+       - "/root/Yelin_news_project/Explore2.0/ArticleManager:/code"
+    ports:
+      - "24444:24444"
+    depends_on:
+       - db
+
+   apache-service:
+    image: httpd:2.4
+    volumes:
+       - "/root/Yelin_news_project/www:/usr/local/apache2/htdocs/"
+       - "/root/Yelin_news_project/docker_config/httpd.conf:/usr/local/apache2/conf/httpd.conf"
+    ports:
+       - "8082:80"
+    depends_on:
+       - web
+       - db
+
+
+
