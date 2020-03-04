@@ -123,11 +123,14 @@ let left = keyboard(65),
     expand = keyboard(81),
     narrow = keyboard(69)
 
+
+const galaxyInfoContainer = new PIXI.Container();
+const centerContainer = new PIXI.Container();
+const reelContainer = new PIXI.Container();
+const bgContainer = new PIXI.Container();
+
 // 第一次渲染执行代码
 function FristSetUp() {
-    const centerContainer = new PIXI.Container();
-    const reelContainer = new PIXI.Container();
-    const bgContainer = new PIXI.Container();
     // for (let i = 1; i < 45; i++) {
     //     for (let y = 1; y < 45; y++) {
     //         let circle = new Graphics();
@@ -149,6 +152,7 @@ function FristSetUp() {
     let displayNot = 0;
     let galaxyInterval = 0;
     let circleCount = 0;
+    const circleLinkList = []
     let now = 0;
     window.G_GALAXY_LAC = [];
     const GI_MIN = 4;
@@ -205,12 +209,30 @@ function FristSetUp() {
                 const richText = new PIXI.Text(id, style);
                 richText.anchor.set(0.5);
                 richText.x = circle.x;
-                richText.y = circle.y + 30;
+                richText.y = circle.y + 25;
 
                 //按缩放大小缩放图片
                 circle.scale.x = 0.2;
                 circle.scale.y = 0.2;
 
+                // circle.width = 48;
+                // circle.height = 48;
+
+                circle.interactive = true;
+                // Shows hand cursor
+                circle.buttonMode = true;
+                circle.on('mouseover', (e) => {
+                    GalaxyInfoSelect(e, circle)
+                });
+                circle.on('mouseout', (e) => {
+                    GalaxyInfoSelectClose(e, circle)
+                });
+
+                circle.info = {
+                    id: id,
+                    size: 1,
+                    pepole: 0
+                };
 
                 reelContainer.addChild(circle);
                 reelContainer.addChild(richText);
@@ -225,7 +247,8 @@ function FristSetUp() {
                     y: circle.y,
                     size: 1,
                     pepole: 0
-                })
+                });
+                circleLinkList.push(circle);
             }
             circleList = [];
             circleCount++;
@@ -261,6 +284,19 @@ function FristSetUp() {
     reelContainer.vx = 0;
     reelContainer.vy = 0;
 
+    // galaxyInfoContainer 容器构建
+    // Rectangle + line style 1
+    const graphics = new PIXI.Graphics();
+    graphics.lineStyle(1, 0x636969, 1);
+    graphics.beginFill(0x5A5A5A);
+    graphics.drawRect(0, 0, 120, 120);
+    graphics.endFill();
+    graphics.alpha = 0.6
+    galaxyInfoContainer.addChild(graphics)
+    galaxyInfoContainer.visible = false
+    reelContainer.addChild(galaxyInfoContainer)
+
+
     //绘制背景网格图
     DisplayGrids(bgContainer, app.renderer.screen.width, app.renderer.screen.height)
 
@@ -269,9 +305,9 @@ function FristSetUp() {
     const BASE_MOVE_VALUE = -10;
 
     expand.press = () => {
-        console.log('放大')
-        centerContainer.scale.x += 0.1
-        centerContainer.scale.y += 0.1
+        // console.log('放大')
+        // centerContainer.scale.x += 0.1
+        // centerContainer.scale.y += 0.1
         // reelContainer.x -= reelContainer.x / 2
         // reelContainer.y -= reelContainer.y / 2
         // for (let circle of reelContainer.children) {
@@ -282,9 +318,9 @@ function FristSetUp() {
     }
 
     narrow.press = () => {
-        console.log('缩小')
-        centerContainer.scale.x -= 0.1;
-        centerContainer.scale.y -= 0.1;
+        // console.log('缩小')
+        // centerContainer.scale.x -= 0.1;
+        // centerContainer.scale.y -= 0.1;
         // reelContainer.x += reelContainer.x / 2
         // reelContainer.y += reelContainer.y / 2
         // for (let circle of reelContainer.children) {
@@ -327,12 +363,67 @@ function FristSetUp() {
 
     };
 
-    reelContainer.interactive = true;
+    // 滚轮控制地图放大缩小
+    (function () {
+        let circleSizeTmp = 0.2;
+        //非火狐实现滚轮效果
+        document.onmousewheel = wheelHander;//非火狐
+        //火狐一家使用DOMMouseScroll实现滚轮效果
+        document.addEventListener('DOMMouseScroll', wheelHander, false);
+        function wheelHander(e) {
+            const ADD_VALUE = 0.2;
+            oEvent = e || window.event;
+            if (oEvent.wheelDelta) {//非火狐
+                if (oEvent.wheelDelta > 0) {//向上滚动
+                    if (centerContainer.scale.y >= 1.8) {
+                        return
+                    }
+                    centerContainer.scale.x += ADD_VALUE;
+                    centerContainer.scale.y += ADD_VALUE;
+                    console.log(centerContainer.scale.x)
+                    if (centerContainer.scale.x >= 0.3) {
+                        for (let circle of circleLinkList) {
+                            circle.scale.x = 0.2
+                            circle.scale.y = 0.2
+                        }
+                    }
+                } else {//向下滚动
+                    if (centerContainer.scale.y <= ADD_VALUE + 0.1) {
+                        return
+                    }
+                    centerContainer.scale.x -= ADD_VALUE;
+                    centerContainer.scale.y -= ADD_VALUE;
+
+                    console.log(centerContainer.scale.x)
+                    if (centerContainer.scale.x <= 0.3) {
+                        for (let circle of circleLinkList) {
+                            circle.scale.x = 0.5
+                            circle.scale.y = 0.5
+                            // circle.width = 48;
+                            // circle.height = 48;
+                        }
+                    }
+                }
+
+            }
+            // else if (oEvent.detail) {
+            //     if (oEvent.detail > 0) {//向下滚动
+            //         centerContainer.scale.x += ADD_VALUE;
+            //         centerContainer.scale.y += ADD_VALUE;
+            //     } else {//向上滚动
+            //         centerContainer.scale.x -= ADD_VALUE;
+            //         centerContainer.scale.y -= ADD_VALUE;
+            //     }
+            // }
+        }
+    })()
+
+    // reelContainer.interactive = true;
     // Shows hand cursor
-    reelContainer.buttonMode = true;
-    // reelContainer.anchor.set(0.5);
+    // reelContainer.buttonMode = true;
+    // // reelContainer.anchor.set(0.5);
     // reelContainer
-    //     .on('mousedown', onDragStart)
+    //     .on('mousedown', GalaxySelect)
     //     .on('pointerup', onDragEnd)
     //     .on('pointerupoutside', onDragEnd)
     //     .on('pointermove', onDragMove);
@@ -350,6 +441,18 @@ function FristSetUp() {
 
     app.stage.addChild(centerContainer);
     return [centerContainer, reelContainer];
+}
+
+function GalaxyInfoSelect(e, galaxy) {
+    console.log('星系被选择:')
+    console.log(galaxy)
+    galaxyInfoContainer.x = galaxy.x + galaxy.width / 2 + 2;
+    galaxyInfoContainer.y = galaxy.y - galaxyInfoContainer.height / 2;
+    galaxyInfoContainer.visible = true;
+}
+
+function GalaxyInfoSelectClose(e, galaxy) {
+    galaxyInfoContainer.visible = false;
 }
 
 
