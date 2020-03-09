@@ -8,116 +8,16 @@
     <meta http-equiv=Content-Language content=zh-CN>
     <meta name=renderer content=webkit>
     <meta name=viewport content="initial-scale=1,maximum-scale=3,minimum-scale=1,user-scalable=no">
-    <title>联系方式 | Suwings</title>
-    <link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/mdui/0.4.2/css/mdui.min.css">
+    <title>Under maintenance</title>
     <link href=favicon.ico rel="shortcut icon">
-    <style>
-        html,
-        body {
-            color: #dbdbdb;
-            background-color: rgb(33, 33, 33);
-            font-family: Avenir, Helvetica, Arial, sans-serif;
-            max-height: 100%;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            /* transition: all .4s; */
-        }
-
-        a {
-            text-decoration: none;
-            color: #c9c9c9;
-            transition: all .8s;
-        }
-
-        a:hover {
-            opacity: 0.8;
-        }
-
-        .app {
-            height: 100%;
-            width: 100%;
-        }
-
-        .item_list {
-            display: inline-block;
-            padding: 8px;
-            border-radius: 4px;
-            min-width: 200px;
-            text-align: center;
-            transition: all .6s;
-        }
-
-        .item_list:hover {
-            background-color: rgba(238, 54, 54, 0.733);
-        }
-
-        #contact_list {
-            text-align: center;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="mdui-container app mdui-valign">
-        <div class="mdui-center ">
-            <h2>联系方式</h2>
-            <p><small>意见反馈建议使用邮件，需要交流请 QQ 加好友备注来因，微信与手机不公开</small></p>
+    <h2>网站正在维护....</h2>
+    <p><b>Website is under maintenance....</b></p>
 
-            <!-- <hr /> -->
-
-            <!-- 联络方式 -->
-            <div id="contact_list">
-                <div class="item_list">
-                    <h4>Github</h4>
-                    <p><a href="https://github.com/suwings">https://github.com/suwings</a></p>
-                </div>
-
-                <div class="item_list">
-                    <h4>QQ</h4>
-                    <p><a href="">951092158</a></p>
-                </div>
-
-                <div class="item_list">
-                    <h4>邮箱</h4>
-                    <p><a href="">Suwings@Outlook.com</a></p>
-                </div>
-            </div>
-
-        </div>
-    </div>
+    <p style="margin-top: 40px;"><a href="http://www.beian.miit.gov.cn">湘ICP备 17022362 号-1</a></p>
 </body>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script>
-    "use strict";
-    $(function () {
 
-        var flag = true;
-        var items = $('.item_list');
-        items.mouseenter(function () {
-            flag = false;
-        });
-        items.mouseleave(function () {
-            flag = true;
-        });
-        var index = 0;
-        var plusval = 1;
-        var MAX_LEN = 2;
-        setInterval(function () {
-            items.removeAttr('style');
-            if (!flag) return;
-
-            items[index].style.backgroundColor = 'rgb(68, 68, 68)';
-
-            index = index + plusval;
-            if (index == 0) plusval = 1;
-            if (index == MAX_LEN) {
-                index = MAX_LEN;
-                plusval = -1;
-            }
-        }, 1000);
-    });
-</script>
 
 </html>
