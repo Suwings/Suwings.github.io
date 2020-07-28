@@ -1,0 +1,9 @@
+C:\Users\suwings\source\repos\ExampleOne\bin\Debug\ExampleOne.exe
+C:\Users\suwings\source\repos\ExampleOne\bin\Debug\ExampleOne.pdb
+C:\Users\suwings\source\repos\ExampleOne\obj\Debug\ExampleOne.csproj.CoreCompileInputs.cache
+C:\Users\suwings\source\repos\ExampleOne\obj\Debug\ExampleOne.exe
+C:\Users\suwings\source\repos\ExampleOne\obj\Debug\ExampleOne.pdb
+C:\Users\suwings\source\repos\ExampleOne\bin\Debug\ExampleOne.exe.config
+C:\Users\suwings\source\repos\ExampleOne\bin\Debug\System.ValueTuple.dll
+C:\Users\suwings\source\repos\ExampleOne\bin\Debug\System.ValueTuple.xml
+C:\Users\suwings\source\repos\ExampleOne\obj\Debug\ExampleOne.csproj.CopyComplete
