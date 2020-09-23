@@ -51,3 +51,23 @@ body, html {
     background-color: tomato;
     transform: skewX(-50deg);
 }
+
+#example_E {
+    height: 100px;
+    width: 200px;
+    background: linear-gradient(-45deg, transparent 15px, #fb3 0);
+}
+
+#example_F {
+    height: 100px;
+    width: 200px;
+    background: linear-gradient(0deg, #fb3 50.0%, #58a 50%);
+}
+
+#example_G {
+    height: 100px;
+    width: 200px;
+    background: linear-gradient(-45deg, transparent 15px, #fb3 0) left, linear-gradient(45deg, transparent 15px, #fb3 0) right;
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
+}
