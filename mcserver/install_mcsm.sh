@@ -66,6 +66,8 @@ sleep 2
 echo "Joining system service..."
 echo "Create file: /usr/lib/systemd/system/mcsm.service"
 
+rm -rf /usr/lib/systemd/system/mcsm.service
+
 echo "[Unit]
 Description=MCSManager
 
