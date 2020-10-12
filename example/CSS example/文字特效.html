@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字特效</title>
+    <style>
+        .A {
+            background: #203;
+            color: #ffc;
+            text-shadow: 0 0 .1em, 0 0 .3em;
+            filter: blur(1px);
+        }
+
+        .A:hover {
+            filter: blur(0px);
+        }
+
+        .con {
+            padding: 8px;
+            font-size: 40px;
+            display: block;
+            height: 50px;
+        }
+
+        .B {
+            background: #58a;
+            color: white;
+            /* 一层层的阴影 */
+            text-shadow: 0 1px rgba(255, 255, 255, .7),
+                0 2px rgba(255, 255, 255, .6),
+                0 3px rgba(255, 255, 255, .5),
+                0 4px rgba(255, 255, 255, .4),
+                0 5px rgba(255, 255, 255, .3),
+                0 5px 10px black;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+    <p class="con A">Glow</p>
+
+    <p class="con B">CSS 3D</p>
+</body>
+
+</html>
