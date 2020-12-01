@@ -1,7 +1,7 @@
 '''
 Author: Copyright(c) 2020 Suwings
 Date: 2020-12-01 21:10:02
-LastEditTime: 2020-12-01 21:54:42
+LastEditTime: 2020-12-01 22:24:43
 Description: 
 '''
 import os
@@ -72,7 +72,7 @@ DEFAULT_REQUEST_HEADERS = {
 # 启用管道
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    # 'WorkshopSpider.pipelines.WorkshopspiderPipeline': 300,
+    'WorkshopSpider.pipelines.WorkshopspiderPipeline': 300,
     'scrapy.pipelines.files.FilesPipeline': 1
 }
 
@@ -97,7 +97,11 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-
+# 文件下载重定向
 MEDIA_ALLOW_REDIRECTS = True
 
+# 输出资料编码
+FEED_EXPORT_ENCODING = 'utf-8'
+
+# 文件下载地址
 FILES_STORE = path.join('D:/', 'WorkshopFiles')

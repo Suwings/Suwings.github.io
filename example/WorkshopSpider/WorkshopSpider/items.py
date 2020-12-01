@@ -1,7 +1,7 @@
 '''
 Author: Copyright(c) 2020 Suwings
 Date: 2020-12-01 21:10:02
-LastEditTime: 2020-12-01 21:40:24
+LastEditTime: 2020-12-01 22:23:55
 Description: 
 '''
 # Define here the models for your scraped items
@@ -13,11 +13,11 @@ import scrapy
 
 
 class WorkshopspiderItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+    # 必须字段
     mod_id = scrapy.Field()
     title = scrapy.Field()
     author = scrapy.Field()
-
+    link = scrapy.Field()
+    # 图片下载字段
     files = scrapy.Field()
     file_urls = scrapy.Field()
