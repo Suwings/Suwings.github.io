@@ -1,7 +1,7 @@
 '''
 Author: Copyright(c) 2020 Suwings
 Date: 2020-12-01 18:52:39
-LastEditTime: 2020-12-01 20:56:12
+LastEditTime: 2020-12-01 21:01:52
 Description: 用于爬取方舟创意工坊的爬虫脚本
 '''
 import scrapy
@@ -25,12 +25,16 @@ class CreativeWorkshopSpider(scrapy.Spider):
 
             # print('[命中]', "名字:", title, " 作者:", author)
 
-            yield {
+            oneline = {
                 'mod_id': mod_id,
                 'title': title,
                 'author': author,
                 'image': image
             }
+
+            yield oneline
+
+            self.log('[命中]', str(oneline))
 
         # next_page = response.css('li.next a::attr("href")').get()
         # if next_page is not None:
