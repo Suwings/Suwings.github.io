@@ -1,7 +1,7 @@
 '''
 Author: Copyright(c) 2020 Suwings
 Date: 2020-12-01 21:10:02
-LastEditTime: 2020-12-01 22:24:43
+LastEditTime: 2020-12-02 13:30:36
 Description: 
 '''
 import os
@@ -105,3 +105,6 @@ FEED_EXPORT_ENCODING = 'utf-8'
 
 # 文件下载地址
 FILES_STORE = path.join('D:/', 'WorkshopFiles')
+
+
+DOWNLOAD_DELAY = 1

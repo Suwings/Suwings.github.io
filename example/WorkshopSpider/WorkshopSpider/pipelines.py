@@ -1,7 +1,7 @@
 '''
 Author: Copyright(c) 2020 Suwings
 Date: 2020-12-01 21:10:02
-LastEditTime: 2020-12-01 22:31:36
+LastEditTime: 2020-12-02 13:24:12
 Description: 
 '''
 # Define your item pipelines here
@@ -16,5 +16,5 @@ from itemadapter import ItemAdapter
 
 class WorkshopspiderPipeline:
     def process_item(self, item, spider):
-        # print("[命中]", item)
+        print("[命中]", item)
         return item
