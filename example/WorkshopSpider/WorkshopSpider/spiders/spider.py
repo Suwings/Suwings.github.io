@@ -1,7 +1,7 @@
 '''
 Author: Copyright(c) 2020 Suwings
 Date: 2020-12-01 18:52:39
-LastEditTime: 2020-12-02 13:27:29
+LastEditTime: 2020-12-02 14:18:02
 Description: 用于爬取方舟创意工坊的爬虫脚本
 '''
 import scrapy
@@ -12,10 +12,11 @@ class CreativeWorkshopSpider(scrapy.Spider):
 
     name = 'CreativeWorkshopSpider'
     start_urls = [
-        'https://steamcommunity.com/workshop/browse/?appid=346110&p=1',
+        'https://steamcommunity.com/workshop/browse/?appid=346110&p=2',
     ]
 
     def parse(self, response):
+        # 循环所有创意工坊 MOD 项目
         for workshop_item in response.css('div.workshopItem'):
             # 对应的网页元素
             mod_id = workshop_item.css(
@@ -40,8 +41,11 @@ class CreativeWorkshopSpider(scrapy.Spider):
 
             yield result_data
 
-            # 下一页
-            next_page = response.css('a.pagebtn::attr("href")').get()
-            if next_page is not None:
-                self.log("正在跳转到下一页:"+next_page)
-                yield response.follow(next_page, self.parse)
+        # 下一页
+        page_btn = response.css('.pagebtn::attr(href)').getall()
+        next_link = page_btn[len(page_btn)-1]
+
+        print("下一页:"+str(next_link))
+        if next_link is not None:
+            self.log("下一页:"+next_link)
+            yield response.follow(next_link, self.parse)
