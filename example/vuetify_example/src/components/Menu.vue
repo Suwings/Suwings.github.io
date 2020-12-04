@@ -1,11 +1,11 @@
 <!--
  * @Author: Copyright(c) 2020 Suwings
  * @Date: 2020-12-04 16:48:28
- * @LastEditTime: 2020-12-04 17:21:42
+ * @LastEditTime: 2020-12-04 18:10:44
  * @Description: 
 -->
 <template>
-  <v-navigation-drawer absolute permanent>
+  <v-navigation-drawer width="300px" absolute permanent>
     <v-list>
       <!-- <v-list-item class="px-2">
         <v-list-item-avatar>
@@ -24,42 +24,41 @@
     <v-divider></v-divider>
 
     <v-list nav dense>
-      <v-list-item link>
-        <v-list-item-icon>
-          <v-icon>mdi-folder</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>My Files</v-list-item-title>
+      <v-list-item>
+        <v-list-item-content>
+          <v-text-field label="搜索功能" outlined dense></v-text-field>
+        </v-list-item-content>
       </v-list-item>
-      <v-list-item link>
-        <v-list-item-icon>
-          <v-icon>mdi-account-multiple</v-icon>
+
+      <v-list-item link v-for="item in list" :key="item">
+        <v-list-item-icon style="margin-right: 10px">
+          <v-icon v-text="item.icon" right dense></v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Shared with me</v-list-item-title>
-      </v-list-item>
-      <v-list-item link>
-        <v-list-item-icon>
-          <v-icon>mdi-star</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Starred</v-list-item-title>
-      </v-list-item>
-      <v-list-item link>
-        <v-list-item-icon>
-          <v-icon>mdi-star</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Starred</v-list-item-title>
-      </v-list-item>
-      <v-list-item link>
-        <v-list-item-icon>
-          <v-icon>mdi-star</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Starred</v-list-item-title>
-      </v-list-item>
-      <v-list-item link>
-        <v-list-item-icon>
-          <v-icon>mdi-star</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>Starred</v-list-item-title>
+        <v-list-item-title
+          v-text="item.title"
+          dense
+          class="text-left"
+        ></v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
+
+<script>
+export default {
+  name: "Menu",
+  data: () => ({
+    title: "MCSManager",
+    list: [
+      { icon: "mdi-folder", title: "概述" },
+      { icon: "mdi-account-multiple", title: "服务器" },
+      { icon: "mdi-star", title: "用户" },
+      { icon: "mdi-folder", title: "API 接口" },
+      { icon: "mdi-folder", title: "守护进程" },
+      { icon: "mdi-folder", title: "新闻" },
+      { icon: "mdi-folder", title: "集群" },
+      { icon: "mdi-folder", title: "设置" },
+    ],
+  }),
+};
+</script>
