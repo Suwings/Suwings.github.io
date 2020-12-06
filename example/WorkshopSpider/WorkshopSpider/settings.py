@@ -1,7 +1,7 @@
 '''
 Author: Copyright(c) 2020 Suwings
 Date: 2020-12-01 21:10:02
-LastEditTime: 2020-12-02 13:30:36
+LastEditTime: 2020-12-06 19:07:49
 Description: 
 '''
 import os
@@ -104,7 +104,8 @@ MEDIA_ALLOW_REDIRECTS = True
 FEED_EXPORT_ENCODING = 'utf-8'
 
 # 文件下载地址
-FILES_STORE = path.join('D:/', 'WorkshopFiles')
+# FILES_STORE = path.join('D:/', 'WorkshopFiles')
+FILES_STORE = "D:/ARK_ControlPanel_Package/public/WorkshopFiles/"
 
 
 DOWNLOAD_DELAY = 1
