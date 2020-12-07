@@ -1,7 +1,7 @@
 <!--
  * @Author: Copyright(c) 2020 Suwings
  * @Date: 2020-12-04 16:25:47
- * @LastEditTime: 2020-12-07 17:59:46
+ * @LastEditTime: 2020-12-07 20:04:51
  * @Description: 
 -->
 <template>
@@ -12,6 +12,7 @@
         <Header />
         <div class="MainContent">
           <ContentIndex />
+          <Footer />
         </div>
       </div>
     </v-main>
@@ -21,6 +22,7 @@
 <style>
 .MainContent {
   padding: 0px 4px;
+  min-height: 100%;
 }
 .MainContainer {
   margin-left: 224px;
@@ -35,6 +37,7 @@
 import Header from "./components/Header";
 import Menu from "./components/Menu";
 import ContentIndex from "./components/ContentIndex";
+import Footer from "./components/Footer";
 
 export default {
   name: "App",
@@ -43,6 +46,7 @@ export default {
     Header,
     Menu,
     ContentIndex,
+    Footer,
   },
 
   data: () => ({

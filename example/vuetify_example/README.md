@@ -1,4 +1,4 @@
-# vuetify_example
+# mcsm_panel
 
 ## Project setup
 ```
