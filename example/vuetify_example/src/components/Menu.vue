@@ -1,11 +1,17 @@
 <!--
  * @Author: Copyright(c) 2020 Suwings
  * @Date: 2020-12-04 16:48:28
- * @LastEditTime: 2020-12-07 17:12:02
+ * @LastEditTime: 2020-12-07 17:57:34
  * @Description: 
 -->
 <template>
-  <v-navigation-drawer width="224px" absolute permanent dark>
+  <v-navigation-drawer
+    id="app-navigation-drawer"
+    width="224px"
+    absolute
+    permanent
+    dark
+  >
     <!-- <v-list-item class="px-2">
         <v-list-item-avatar>
           <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
@@ -16,16 +22,25 @@
     <v-list>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="title"> MCSManager </v-list-item-title>
+          <v-list-item-title class="title">MCSManager</v-list-item-title>
           <!-- <v-list-item-subtitle>#master</v-list-item-subtitle> -->
         </v-list-item-content>
       </v-list-item>
     </v-list>
     <!-- <v-divider></v-divider> -->
 
-    <v-list-item-group v-model="selectedItem" active-class="AppActiveItem">
+    <v-list-item-group
+      active-class="list-item-group-active"
+      v-model="selectedItem"
+    >
       <v-list nav dense>
-        <v-list-item link v-for="item in list" :key="item.title">
+        <v-list-item
+          class="list-item"
+          style="border-radius: 0px"
+          link
+          v-for="item in list"
+          :key="item.title"
+        >
           <v-list-item-icon class="AppItemIcon" style="margin-right: 10px">
             <v-icon v-text="item.icon" right dense></v-icon>
           </v-list-item-icon>
@@ -46,8 +61,17 @@
   font-weight: 400;
 }
 
-.AppActiveItem {
-  color: rgb(221, 221, 221);
+.list-item-group-active {
+  color: rgb(179, 179, 179);
+}
+
+#app-navigation-drawer {
+  background-color: rgb(56, 72, 89);
+}
+
+.list-item {
+  margin: 0px -8px;
+  border-radius: 0px;
 }
 </style>
 

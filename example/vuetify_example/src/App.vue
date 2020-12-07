@@ -1,30 +1,38 @@
 <!--
  * @Author: Copyright(c) 2020 Suwings
  * @Date: 2020-12-04 16:25:47
- * @LastEditTime: 2020-12-07 16:34:28
+ * @LastEditTime: 2020-12-07 17:59:46
  * @Description: 
 -->
 <template>
   <v-app>
-    <!-- <Header />  -->
     <Menu />
-    <v-main>
-      <div class="main_content">
-        <ContentIndex />
+    <v-main id="Main">
+      <div class="MainContainer">
+        <Header />
+        <div class="MainContent">
+          <ContentIndex />
+        </div>
       </div>
     </v-main>
   </v-app>
 </template>
 
 <style>
-.main_content {
+.MainContent {
+  padding: 0px 4px;
+}
+.MainContainer {
   margin-left: 224px;
-  padding: 0px 12px;
+}
+
+#Main {
+  background-color: rgb(236, 236, 236);
 }
 </style>
 
 <script>
-// import Header from "./components/Header";
+import Header from "./components/Header";
 import Menu from "./components/Menu";
 import ContentIndex from "./components/ContentIndex";
 
@@ -32,7 +40,7 @@ export default {
   name: "App",
 
   components: {
-    // Header,
+    Header,
     Menu,
     ContentIndex,
   },
