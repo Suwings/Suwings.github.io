@@ -1,14 +1,14 @@
 <!--
  * @Author: Copyright(c) 2020 Suwings
  * @Date: 2020-12-04 16:48:28
- * @LastEditTime: 2020-12-07 17:57:34
+ * @LastEditTime: 2020-12-07 19:39:01
  * @Description: 
 -->
 <template>
   <v-navigation-drawer
     id="app-navigation-drawer"
     width="224px"
-    absolute
+    fixed
     permanent
     dark
   >
@@ -34,22 +34,17 @@
       v-model="selectedItem"
     >
       <v-list nav dense>
-        <v-list-item
-          class="list-item"
-          style="border-radius: 0px"
-          link
-          v-for="item in list"
-          :key="item.title"
-        >
-          <v-list-item-icon class="AppItemIcon" style="margin-right: 10px">
-            <v-icon v-text="item.icon" right dense></v-icon>
-          </v-list-item-icon>
-          <v-list-item-title
-            v-text="item.title"
-            dense
-            class="text-left"
-          ></v-list-item-title>
-        </v-list-item>
+        <span v-for="item in list" :key="item.title">
+          <v-list-item class="list-item" link v-if="item.icon">
+            <v-list-item-icon class="AppItemIcon" style="margin-right: 10px">
+              <v-icon v-text="item.icon" right dense></v-icon>
+            </v-list-item-icon>
+            <v-list-item-title v-text="item.title" dense class="text-left">
+            </v-list-item-title>
+          </v-list-item>
+
+          <v-subheader v-if="!item.icon" v-text="item.title"></v-subheader>
+        </span>
       </v-list>
     </v-list-item-group>
   </v-navigation-drawer>
@@ -83,13 +78,17 @@ export default {
     AppActiveItem: "AppActiveItem",
     selectedItem: 0,
     list: [
+      { icon: "", title: "基础功能" },
       { icon: "mdi-equalizer-outline ", title: "数据监控" },
       { icon: "mdi-dns-outline ", title: "应用实例" },
       { icon: "mdi-account-cog-outline", title: "用户" },
+      { icon: "", title: "核心功能" },
       { icon: "mdi-dots-grid", title: "API 接口" },
       { icon: "mdi-cube-outline", title: "守护进程" },
+      { icon: "", title: "扩展功能" },
       { icon: "mdi-card-bulleted-outline ", title: "新闻" },
       { icon: "mdi-cube-unfolded", title: "集群" },
+      { icon: "", title: "扩展" },
       { icon: "mdi-cog-outline", title: "设置" },
     ],
   }),
