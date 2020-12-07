@@ -1,63 +1,72 @@
 <!--
  * @Author: Copyright(c) 2020 Suwings
  * @Date: 2020-12-04 16:48:28
- * @LastEditTime: 2020-12-04 18:10:44
+ * @LastEditTime: 2020-12-07 17:12:02
  * @Description: 
 -->
 <template>
-  <v-navigation-drawer width="300px" absolute permanent>
-    <v-list>
-      <!-- <v-list-item class="px-2">
+  <v-navigation-drawer width="224px" absolute permanent dark>
+    <!-- <v-list-item class="px-2">
         <v-list-item-avatar>
           <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
         </v-list-item-avatar>
       </v-list-item> -->
 
-      <v-list-item link>
-        <v-list-item-content>
-          <v-list-item-title class="title"> MCSManager </v-list-item-title>
-          <v-list-item-subtitle>#master</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
-
-    <v-divider></v-divider>
-
-    <v-list nav dense>
+    <!-- 标题栏 -->
+    <v-list>
       <v-list-item>
         <v-list-item-content>
-          <v-text-field label="搜索功能" outlined dense></v-text-field>
+          <v-list-item-title class="title"> MCSManager </v-list-item-title>
+          <!-- <v-list-item-subtitle>#master</v-list-item-subtitle> -->
         </v-list-item-content>
       </v-list-item>
-
-      <v-list-item link v-for="item in list" :key="item">
-        <v-list-item-icon style="margin-right: 10px">
-          <v-icon v-text="item.icon" right dense></v-icon>
-        </v-list-item-icon>
-        <v-list-item-title
-          v-text="item.title"
-          dense
-          class="text-left"
-        ></v-list-item-title>
-      </v-list-item>
     </v-list>
+    <!-- <v-divider></v-divider> -->
+
+    <v-list-item-group v-model="selectedItem" active-class="AppActiveItem">
+      <v-list nav dense>
+        <v-list-item link v-for="item in list" :key="item.title">
+          <v-list-item-icon class="AppItemIcon" style="margin-right: 10px">
+            <v-icon v-text="item.icon" right dense></v-icon>
+          </v-list-item-icon>
+          <v-list-item-title
+            v-text="item.title"
+            dense
+            class="text-left"
+          ></v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-list-item-group>
   </v-navigation-drawer>
 </template>
+
+<style>
+.AppItemIcon {
+  margin-right: 10px;
+  font-weight: 400;
+}
+
+.AppActiveItem {
+  color: rgb(221, 221, 221);
+}
+</style>
 
 <script>
 export default {
   name: "Menu",
   data: () => ({
     title: "MCSManager",
+    AppActiveItem: "AppActiveItem",
+    selectedItem: 0,
     list: [
-      { icon: "mdi-folder", title: "概述" },
-      { icon: "mdi-account-multiple", title: "服务器" },
-      { icon: "mdi-star", title: "用户" },
-      { icon: "mdi-folder", title: "API 接口" },
-      { icon: "mdi-folder", title: "守护进程" },
-      { icon: "mdi-folder", title: "新闻" },
-      { icon: "mdi-folder", title: "集群" },
-      { icon: "mdi-folder", title: "设置" },
+      { icon: "mdi-equalizer-outline ", title: "数据监控" },
+      { icon: "mdi-dns-outline ", title: "应用实例" },
+      { icon: "mdi-account-cog-outline", title: "用户" },
+      { icon: "mdi-dots-grid", title: "API 接口" },
+      { icon: "mdi-cube-outline", title: "守护进程" },
+      { icon: "mdi-card-bulleted-outline ", title: "新闻" },
+      { icon: "mdi-cube-unfolded", title: "集群" },
+      { icon: "mdi-cog-outline", title: "设置" },
     ],
   }),
 };

@@ -1,7 +1,7 @@
 <!--
  * @Author: Copyright(c) 2020 Suwings
  * @Date: 2020-12-04 16:25:47
- * @LastEditTime: 2020-12-04 17:53:53
+ * @LastEditTime: 2020-12-07 16:34:28
  * @Description: 
 -->
 <template>
@@ -18,7 +18,7 @@
 
 <style>
 .main_content {
-  margin-left: 300px;
+  margin-left: 224px;
   padding: 0px 12px;
 }
 </style>
