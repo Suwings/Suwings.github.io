@@ -1,56 +1,56 @@
 <!--
  * @Author: Copyright(c) 2020 Suwings
  * @Date: 2020-12-04 17:30:01
- * @LastEditTime: 2020-12-07 20:03:50
+ * @LastEditTime: 2020-12-13 23:02:52
  * @Description: 
 -->
 <template>
   <v-container>
     <v-row>
       <v-col md="4">
-        <v-card elevation="1" outlined width="100%">
+        <v-card elevation="0" outlined width="100%">
           <v-card-title>标题</v-card-title>
           <v-card-text> 内容 </v-card-text>
         </v-card>
       </v-col>
       <v-col md="4">
-        <v-card elevation="1" outlined>
+        <v-card elevation="0" outlined>
           <v-card-title>标题</v-card-title>
           <v-card-text> 内容 </v-card-text>
         </v-card>
       </v-col>
       <v-col md="4">
-        <v-card elevation="1" outlined>
+        <v-card elevation="0" outlined>
           <v-card-title>标题</v-card-title>
           <v-card-text> 内容 </v-card-text>
         </v-card>
       </v-col>
       <v-col md="4">
-        <v-card elevation="1" outlined>
+        <v-card elevation="0" outlined>
           <v-card-title>标题</v-card-title>
           <v-card-text> 内容 </v-card-text>
         </v-card>
       </v-col>
       <v-col md="4">
-        <v-card elevation="1" outlined>
+        <v-card elevation="0" outlined>
           <v-card-title>标题</v-card-title>
           <v-card-text> 内容 </v-card-text>
         </v-card>
       </v-col>
       <v-col md="4">
-        <v-card elevation="1" outlined>
+        <v-card elevation="0" outlined>
           <v-card-title>标题</v-card-title>
           <v-card-text> 内容 </v-card-text>
         </v-card>
       </v-col>
       <v-col md="4">
-        <v-card elevation="1" outlined>
+        <v-card elevation="0" outlined>
           <v-card-title>标题</v-card-title>
           <v-card-text> 内容 </v-card-text>
         </v-card>
       </v-col>
       <v-col md="4">
-        <v-card elevation="1" outlined>
+        <v-card elevation="0" outlined>
           <v-card-title>标题</v-card-title>
           <v-card-text> 内容 </v-card-text>
         </v-card>

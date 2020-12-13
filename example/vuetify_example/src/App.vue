@@ -1,7 +1,7 @@
 <!--
  * @Author: Copyright(c) 2020 Suwings
  * @Date: 2020-12-04 16:25:47
- * @LastEditTime: 2020-12-07 20:04:51
+ * @LastEditTime: 2020-12-13 23:03:26
  * @Description: 
 -->
 <template>
@@ -24,12 +24,9 @@
   padding: 0px 4px;
   min-height: 100%;
 }
-.MainContainer {
-  margin-left: 224px;
-}
 
 #Main {
-  background-color: rgb(236, 236, 236);
+  background-color: rgb(250, 250, 250);
 }
 </style>
 
