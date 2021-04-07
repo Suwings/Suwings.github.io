@@ -1,5 +1,16 @@
 .App {
+  color: #61dafb;
   text-align: center;
+  padding: 32px;
+}
+
+.App h4 {
+  margin: 2px;
+}
+
+.AppTip {
+  color: gray;
+  font-size: 14px;
 }
 
 .App-logo {
