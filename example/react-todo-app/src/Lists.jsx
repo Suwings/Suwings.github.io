@@ -1,7 +1,7 @@
 /*
  * @Author: Copyright(c) 2020 Suwings
  * @Date: 2021-04-07 16:34:51
- * @LastEditTime: 2021-04-07 19:36:48
+ * @LastEditTime: 2021-04-07 20:09:18
  * @Description: 
  */
 
@@ -12,10 +12,12 @@ export default class Lists extends React.Component {
 
   constructor(props) {
     super();
+    // 状态（必须 state）
     this.state = {
       todoItems: props.data,
       newItemValue: ""
     }
+    // 事件方法绑定
     this.createTodo = this.createTodo.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.switchStatus = this.switchStatus.bind(this);
@@ -57,7 +59,8 @@ export default class Lists extends React.Component {
         <div className={todo.status ? "Todo-item done" : "Todo-item"}>
 
           <span>
-            <span onClick={() => this.switchStatus(index)} className="item-status">{todo.status ? "✔" : "✘"}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span onClick={() => this.switchStatus(index)} className="item-status">
+              {todo.status ? "✔" : "✘"}&nbsp;&nbsp;&nbsp;&nbsp;</span>
             {todo.title}
           </span>
           <span className="item-cannel" onClick={(e) => this.deleteTodo(index)}>X</span>
@@ -72,7 +75,8 @@ export default class Lists extends React.Component {
         <div className="Lists">
           {items}
         </div>
-        <input type="text" className="input" value={this.state.newItemValue} onChange={this.handleChange} />
+        <input type="text" className="input" value={this.state.newItemValue}
+          onChange={this.handleChange} />
         <button onClick={(e) => this.createTodo(e)}>新增</button>
       </div>
     );

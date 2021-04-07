@@ -1,7 +1,7 @@
 /*
  * @Author: Copyright(c) 2020 Suwings
  * @Date: 2021-04-07 16:34:51
- * @LastEditTime: 2021-04-07 19:39:06
+ * @LastEditTime: 2021-04-07 20:07:19
  * @Description: 
  */
 import React from 'react';
@@ -15,24 +15,19 @@ const data = [
   {
     title: "开发完成 App.jsx 部分",
     status: true
-  },
-  {
+  }, {
     title: "开发 List.jsx 组件",
     status: true
-  },
-  {
+  }, {
     title: "编写测试用例代码",
     status: false
-  },
-  {
+  }, {
     title: "审计 Javascript 代码",
     status: true
-  },
-  {
+  }, {
     title: "编写文档序言",
     status: true
-  },
-  {
+  }, {
     title: "编写周报",
     status: false
   }

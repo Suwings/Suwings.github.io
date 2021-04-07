@@ -9,10 +9,6 @@
   box-shadow: 0px 0px 28px rgba(0, 0, 0, 0.753);
 }
 
-.Lists-wapper {
-  /* overflow: hidden; */
-}
-
 .Todo-item-wapper {
   overflow: hidden;
   font-size: 1rem;
