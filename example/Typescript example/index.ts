@@ -1,3 +1,9 @@
+/*
+ * @Author: Copyright(c) 2020 Suwings
+ * @Date: 2019-11-21 09:33:00
+ * @LastEditTime: 2021-04-20 22:40:35
+ * @Description: 
+ */
 // Typescript 基本代码
 
 // App 初始化接口
@@ -85,3 +91,14 @@ const a1: MyServiceNameSpace.ServiceMinx = {
 import * as server from './server';
 const a2 = new server.DemoServer('demo_app');
 a2.serverName; // demo_app
+
+import Koa from "koa";
+import koaRouter from "koa-router";
+
+const app = new Koa();
+const router = new koaRouter();
+const a = { x: 2 }
+a.x = 3;
+router.all("/", (ctx) => {
+
+});
