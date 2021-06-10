@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+/*表格样式*/
+
+table {
+    width: 80%;
+    /* background: #ccc; */
+    margin: 10px auto;
+    border-collapse: collapse;
+}
+
+table * {
+    transition: all 0.3s ease;
+}
+
+th, td {
+    height: 26px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.tdTextLeft {
+    text-align: left;
+    padding: 0px 14px;
+}
+
+th {
+    background: rgb(238, 238, 238);
+    padding: 4px 0px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+S tr {
+    background: #fff;
+}
+
+tr:hover {
+    background: rgb(241, 241, 241);
+}
+
+td a {
+    color: #06f;
+    text-decoration: none;
+}
+
+td a:hover {
+    color: #06f;
+    text-decoration: underline;
+}
+
+td span {
+    color: #06f;
+}
+
+td span:hover {
+    color: rgb(14, 150, 14);
+}
+
+td > input, td select {
+    height: 30px;
+    width: 96%;
+}

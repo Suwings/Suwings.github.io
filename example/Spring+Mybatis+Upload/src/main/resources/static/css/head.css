@@ -1,0 +1,38 @@
+@charset "UTF-8";
+h1 {
+    font: 30px bold 仿宋;
+    color: #2c6cd0;
+    text-align: center;
+}
+
+ul {
+    background-color: #dddddd;
+}
+
+li {
+    display: inline-block;
+    margin-left: 5px;
+    border: 3px;
+    padding: 0px 0px 3px 0px;
+    width: 17%;
+    height: 50px;
+    line-height: 50px;
+    border-top: 3px solid #dddddd;
+}
+
+.option_link {
+    display: block;
+    text-decoration: none;
+    color: #1f66d0;
+    width: 100%;
+    text-align: center;
+}
+
+li:hover {
+    background-color: white;
+    border-top: 3px solid #0f47d0;
+}
+
+a:hover {
+    color: #1f66d0;
+}

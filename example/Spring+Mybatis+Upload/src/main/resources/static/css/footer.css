@@ -1,0 +1,33 @@
+@charset "UTF-8";
+footer {
+    margin-top: 20px;
+    font: 20px bold 仿宋;
+    color: chocolate;
+    text-align: center;
+    border-top: 5px solid chocolate;
+    height: 100px;
+    line-height: 100px;
+}
+
+html, body {
+    font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
+    font-size: 14px;
+    color: #1a1a1a;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-height: 100%;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}

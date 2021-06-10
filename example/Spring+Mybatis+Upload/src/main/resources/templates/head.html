@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{../static/css/head.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/static/css/table.css}">
+    <link rel="stylesheet" th:href="@{./static/css/footer.css}"/>
+
+    <title>Insert title here</title>
+</head>
+<body>
+<div th:fragment="head">
+    <h1>商品信息管理系统</h1>
+    <ul>
+        <li><a class="option_link" href="/create">商品信息录入</a></li>
+        <li><a class="option_link" href="/">商品信息查询</a></li>
+        <li><a class="option_link" href="/">用户信息修改</a></li>
+        <li><a class="option_link" href="/">用户信息删除</a></li>
+        <li><a class="option_link" href="/">商品信息显示</a></li>
+    </ul>
+</div>
+
+</body>
+</html>

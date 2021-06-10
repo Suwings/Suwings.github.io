@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.suwings.ssm.mapper.ItemMapper">
+    <select id="findItemAll" resultType="Item">
+        select * from item;
+    </select>
+
+    <insert id="save" parameterType="Item">
+        INSERT INTO item (id,name,category,brand,picAddress,price,stock)
+        VALUES (#{id},#{name},#{category},#{brand},#{picAddress},#{price},#{stock})
+    </insert>
+
+    <update id="update" parameterType="Item">
+        UPDATE item SET item.name = #{name},category = #{category},brand = #{brand},
+        picAddress = #{picAddress},price = #{price},stock = #{stock}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

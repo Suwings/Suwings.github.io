@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Website</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</head>
+
+<body>
+<div th:replace="head :: head"></div>
+<form action="/update_item" method="post">
+    <table>
+        <input hidden="hidden" name="id" th:value="${item.id}" type="text">
+        <tr>
+            <th>name</th>
+            <th>category</th>
+            <th>price</th>
+            <th>brand</th>
+            <th>stock</th>
+            <th>picAddress</th>
+        </tr>
+        <tr>
+            <td>
+                <input name="name" th:value="${item.name}" type="text">
+            </td>
+            <td>
+                <input name="category" th:value="${item.category}" type="text">
+            </td>
+            <td>
+                <input name="price" th:value="${item.price}" type="text">
+            </td>
+            <td>
+                <input name="brand" th:value="${item.brand}" type="text">
+            </td>
+            <td>
+                <input name="stock" th:value="${item.stock}" type="text">
+            </td>
+            <td>
+                <input name="picAddress" th:value="${item.picAddress}" type="text">
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="更新数据"/>
+    &nbsp;
+    <a href="/">返回</a>
+</form>
+
+<div th:replace="footer :: footer"></div>
+</body>
+
+</html>

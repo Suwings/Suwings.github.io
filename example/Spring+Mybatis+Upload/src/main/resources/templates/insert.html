@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Website</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/static/css/table.css}">
+</head>
+
+<body style="min-height: 100%">
+<div th:replace="head :: head"></div>
+<form action="/create_item" enctype="multipart/form-data" method="post">
+    <table>
+        <tr>
+            <th>物品名字</th>
+            <th>分类</th>
+            <th>价格</th>
+            <th>商标</th>
+            <th>存货</th>
+            <th>物品图片</th>
+        </tr>
+        <tr>
+            <td>
+                <input name="name" type="text">
+            </td>
+            <td>
+                <input name="category" type="text">
+            </td>
+            <td>
+                <input name="price" type="text">
+            </td>
+            <td>
+                <input name="brand" type="text">
+            </td>
+            <td>
+                <input name="stock" type="text">
+            </td>
+            <td>
+                <input hidden="hidden" name="picAddress" type="text" value="">
+                <input name="file" type="file"/>
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center">
+        <input type="submit" value="确定新增"/>
+    </div>
+</form>
+</body>
+<div th:replace="footer :: footer"></div>
+</html>

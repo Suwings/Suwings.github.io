@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Website</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{./static/css/table.css}">
+</head>
+
+<body>
+<div th:replace="head :: head"></div>
+<table>
+    <tr>
+        <th>物品名称</th>
+        <th>价格</th>
+        <th>分类</th>
+        <th>商标</th>
+        <th>物品图片</th>
+        <th>存库</th>
+        <th>操作</th>
+    </tr>
+    <tr th:each="prod : ${prods}">
+        <td th:text="${prod.name}"></td>
+        <td th:text="${prod.price}"></td>
+        <td th:text="${prod.category}"></td>
+        <td th:text="${prod.brand}"></td>
+        <td>
+            <img alt="" th:src="'download?filename='+${prod.picAddress}">
+        </td>
+        <td th:text="${prod.stock}"></td>
+        <td>
+            <div>
+                <a th:href="'/delete_item?id='+${prod.id}">删除</a> <a th:href="'/info?id='+${prod.id}">编辑</a>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<!--<a href="/create">创建项目</a>-->
+<div th:replace="footer :: footer"></div>
+</body>
+
+</html>
